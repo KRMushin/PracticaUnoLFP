@@ -4,13 +4,17 @@
 
 package com.mycompany.practicaunolfp;
 
+import com.mycompany.practicaunolfp.Vista.VistaPrincipal;
+
 /**
  *
  * @author kevin-mushin
  */
 public class PracticaUnoLFP {
 
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
+    public static void main(String[] args) {  
+        
+        VistaPrincipal vista = new VistaPrincipal();
+        vista.setVisible(true);
     }
 }
