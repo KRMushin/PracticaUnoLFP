@@ -4,6 +4,7 @@
  */
 package com.mycompany.practicaunolfp.Controladores;
 
+import com.mycompany.practicaunolfp.AnalizadorLexico.AnalizadorLexico;
 import com.mycompany.practicaunolfp.Vista.VistaPrincipal;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,8 @@ import javax.swing.JOptionPane;
 public class ControladorPrincipal {
     
     private VistaPrincipal vistaPrincipal;
-
+    private AnalizadorLexico analizadorLexico;
+    
     public ControladorPrincipal(VistaPrincipal vistaPrincipal) {
         this.vistaPrincipal = vistaPrincipal;
     }
@@ -29,48 +31,11 @@ public class ControladorPrincipal {
             return;
         }
      
+        this.analizadorLexico = new AnalizadorLexico(entradaAnalisis);
+        List<String> lexemas = analizadorLexico.obtenerLexemas(entradaAnalisis);
+        mostrarLexemas(lexemas);
         
-    }
-    /*
-        metodo para separar toda la linea de caracteres en lexemas para su posterior analisis
-        este metodo retorna una lista de cadenas ( lexemas )
-    */
-    private List<String> obtenerLexemas(String entrada){
-    
-        List<String> lexemas = new ArrayList<>();
-        //aca se guardan los lexemas formados
-        StringBuilder lexemaActual = new StringBuilder();
-        // for que itera sobre todos lo caracteres
-        for (int i = 0; i < entrada.length(); i++) {
-            // obtencion del caracater i
-              char caracter = entrada.charAt(i);
-              //evaluar si es un caracter vacio
-              if (Character.isWhitespace(caracter)) {
-                  //si encuentra un espacio en blanco guarda los datos anteriores construidos en el stringbuilder
-                  // y establece en 0 para que se introduzca un nuevo lexema
-                  if (lexemaActual.length() > 0) {
-                      lexemas.add(lexemaActual.toString());
-                      lexemaActual.setLength(0);
-                  }
-                  else if (true) {
-                      
-                  }
-                  
-                  
-            }
-              
-            
-        }
-        
-        return lexemas;
-    }
-    
-    
-    
-    
-    
-    
-    
+    }    
     private boolean datosValidos(String numeroFilas, String numeroColumnas){
     
             try {
@@ -86,6 +51,15 @@ public class ControladorPrincipal {
                 JOptionPane.showMessageDialog(null, "Por favor, ingrese datos válidos para las columnas y filas.");
                 return false;
             }
+    }
+    
+    private void mostrarLexemas(List<String> lexemas){
+    
+        for (int i = 0; i < lexemas.size(); i++) {
+              System.out.println(lexemas.get(i));        
+        }
+    
+    
     }
     
 } // cerrar clase
