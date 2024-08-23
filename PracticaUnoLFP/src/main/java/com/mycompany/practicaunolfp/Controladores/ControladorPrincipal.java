@@ -5,6 +5,7 @@
 package com.mycompany.practicaunolfp.Controladores;
 
 import com.mycompany.practicaunolfp.AnalizadorLexico.AnalizadorLexico;
+import com.mycompany.practicaunolfp.AnalizadorLexico.Token;
 import com.mycompany.practicaunolfp.Vista.VistaPrincipal;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +33,8 @@ public class ControladorPrincipal {
         }
      
         this.analizadorLexico = new AnalizadorLexico(entradaAnalisis);
-        List<String> lexemas = analizadorLexico.obtenerLexemas(entradaAnalisis);
-        mostrarLexemas(lexemas);
+        List<Token> tokens = analizadorLexico.obtenerLexemas(entradaAnalisis);
+        mostrarLexemas(tokens);
         
     }    
     private boolean datosValidos(String numeroFilas, String numeroColumnas){
@@ -53,10 +54,12 @@ public class ControladorPrincipal {
             }
     }
     
-    private void mostrarLexemas(List<String> lexemas){
+    private void mostrarLexemas(List<Token> tokens){
     
-        for (int i = 0; i < lexemas.size(); i++) {
-              System.out.println(lexemas.get(i));        
+        System.out.println(tokens.size());
+        for (int i = 0; i < tokens.size(); i++) {
+              Token token = tokens.get(i);
+              System.out.println(" LEXEMA " + token.getLexema() + " color " + token.getColor());
         }
     
     

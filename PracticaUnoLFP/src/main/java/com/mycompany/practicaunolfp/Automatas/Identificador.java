@@ -8,7 +8,7 @@ package com.mycompany.practicaunolfp.Automatas;
  *
  * @author kevin-mushin
  */
-public class AutomataIdentificador {
+public class Identificador {
     /*
     N = { S0 , S1}
     T = { A-Z , a-z ,  _ , 0- 9 }
@@ -24,7 +24,7 @@ public class AutomataIdentificador {
     }
     private Produccion estadoActual;
 
-    public AutomataIdentificador() {
+    public Identificador() {
         // estado inicial s0
         this.estadoActual = Produccion.S0;
     }
@@ -41,10 +41,7 @@ public class AutomataIdentificador {
                          break; //salida
                      }
                   
-               }
-            
-        
-        
+               }    
     return estadoActual == Produccion.S1;
     }
     
