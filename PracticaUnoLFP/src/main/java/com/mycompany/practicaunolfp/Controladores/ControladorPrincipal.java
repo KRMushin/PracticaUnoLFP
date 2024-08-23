@@ -7,6 +7,7 @@ package com.mycompany.practicaunolfp.Controladores;
 import com.mycompany.practicaunolfp.AnalizadorLexico.AnalizadorLexico;
 import com.mycompany.practicaunolfp.AnalizadorLexico.Token;
 import com.mycompany.practicaunolfp.Vista.VistaPrincipal;
+import com.mycompany.practicaunolfp.utileria.TokenPanel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -24,19 +25,47 @@ public class ControladorPrincipal {
         this.vistaPrincipal = vistaPrincipal;
     }
     public void analizarEntrada(String numeroFilas , String numeroColumnas , String entradaAnalisis){
-        System.out.println(entradaAnalisis);
+
         if (!datosValidos(numeroFilas, numeroColumnas)) {
             return;
         }
+        int numeroFil = Integer.parseInt(numeroFilas);
+        int numeroCol = Integer.parseInt(numeroColumnas);
+                
         if (entradaAnalisis.isEmpty()) {
             return;
         }
      
         this.analizadorLexico = new AnalizadorLexico(entradaAnalisis);
         List<Token> tokens = analizadorLexico.obtenerLexemas(entradaAnalisis);
+        if ((numeroFil * numeroCol) < tokens.size()) {
+            mostrarMensaje("El numero de filas y columnas ingresador no puede soportar la cantidad de tokens encontrados \n Numero Tokens: " + tokens.size());
+            return;
+        }
         mostrarLexemas(tokens);
-        
-    }    
+        System.out.println("si");
+        System.out.println(obtenerTokenPaneles(tokens,numeroFil,numeroCol).size());
+        vistaPrincipal.mostrarPanelesToken(obtenerTokenPaneles(tokens,numeroFil,numeroCol), numeroFil, numeroCol);
+    }
+    private List<TokenPanel> obtenerTokenPaneles(List<Token> tokens, int numeroFilas, int numeroColumnas){
+        List<TokenPanel> paneles = new ArrayList<>();
+        int indiceToken = 0;
+               for (int i = 0; i < numeroFilas; i++) {
+                    for (int j = 0; j < numeroColumnas; j++) {
+                        if (indiceToken < tokens.size()) {
+                            Token token = tokens.get(indiceToken);
+                            TokenPanel panel = new TokenPanel(i, j, token);
+                            paneles.add(panel);
+                            indiceToken++;
+                        } else {
+                            // se cierra el ciclo para no generar mas paneles adicionales
+                            break;
+                        }
+                    }
+                }
+           return paneles;
+    }
+    
     private boolean datosValidos(String numeroFilas, String numeroColumnas){
     
             try {
@@ -44,12 +73,12 @@ public class ControladorPrincipal {
                 int columnas = Integer.parseInt(numeroColumnas);
                 // Verificar si las filas y columnas son números positivos
                 if (filas <= 0 || columnas <= 0) {
-                    JOptionPane.showMessageDialog(null, "Por favor, ingrese valores positivos para las columnas y filas.");
+                    mostrarMensaje("Por favor, ingrese valores positivos para las columnas y filas.");
                     return false;
                 }
                 return true;
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Por favor, ingrese datos válidos para las columnas y filas.");
+                mostrarMensaje("Por favor, ingrese datos válidos para las columnas y filas.");
                 return false;
             }
     }
@@ -63,6 +92,11 @@ public class ControladorPrincipal {
         }
     
     
+    }
+    private void mostrarMensaje(String mensaje){
+                    JOptionPane.showMessageDialog(null, mensaje);
+
+        
     }
     
 } // cerrar clase

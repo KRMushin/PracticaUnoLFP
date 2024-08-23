@@ -29,6 +29,9 @@ public class DatosCadena {
     public DatosCadena() {
         this.estadoActual = Produccion.S0;
     }
+    public void reiniciar() {
+        this.estadoActual = Produccion.S0;
+    }
 
     public boolean esCadenaValida(String lexema) {
         for (int i = 0; i < lexema.length(); i++) {

@@ -6,12 +6,17 @@ package com.mycompany.practicaunolfp.Vista;
 
 import com.mycompany.practicaunolfp.Controladores.ControladorPrincipal;
 import com.mycompany.practicaunolfp.utileria.LectorArchivo;
+import com.mycompany.practicaunolfp.utileria.TokenPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.io.File;
+import java.util.List;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
@@ -39,6 +44,26 @@ public class VistaPrincipal extends javax.swing.JFrame {
         initComponents();
         configuracionFrame();
     }
+    public void mostrarPanelesToken(List<TokenPanel> paneles, int numeroFilas , int numeroColumnas){
+        panelGrafico.removeAll();
+    panelGrafico.setLayout(new BoxLayout(panelGrafico, BoxLayout.Y_AXIS));
+    
+    JPanel gridPanel = new JPanel();
+    gridPanel.setLayout(new GridLayout(numeroFilas, numeroColumnas));
+
+    int totalTokens = Math.min(paneles.size(), numeroFilas * numeroColumnas);
+
+    for (int i = 0; i < totalTokens; i++) {
+        TokenPanel panel = paneles.get(i);
+        gridPanel.add(panel);
+    }
+    
+    // Añadir el panel de la cuadrícula al panel gráfico principal
+    panelGrafico.add(gridPanel);
+    this.pack();
+    }
+    
+    
     private void configuracionFrame(){
         
            this.setExtendedState(JFrame.MAXIMIZED_BOTH);

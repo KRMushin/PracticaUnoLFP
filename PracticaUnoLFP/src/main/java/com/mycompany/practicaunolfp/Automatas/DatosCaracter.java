@@ -27,6 +27,9 @@ public class DatosCaracter {
     public DatosCaracter() {
         this.estadoActual = Produccion.S0;
     }
+    public void reiniciar() {
+        this.estadoActual = Produccion.S0;
+    }
 
     public boolean esCaracterValido(char caracter) {
         switch (estadoActual) {
@@ -62,7 +65,7 @@ public class DatosCaracter {
 
     private boolean esSimbolo(char caracter) {
         // verifica algunos caracteres permitidos s
-        char[] simbolosPermitidos = { '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '[', ']', '{', '}', '|', ';', ':', '\'', '\"', ',', '.', '<', '>', '/', '?' };
+        char[] simbolosPermitidos = { '!', '@', '#', '$', '%', '^', '&', '|', ';', ':', '\'', '\"', ',', '.', '<', '>', '?' };
         for (char simbolo : simbolosPermitidos) {
             if (caracter == simbolo) {
                 return true;

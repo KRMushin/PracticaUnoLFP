@@ -92,6 +92,67 @@ public enum TipoOperador {
             return "#60A917";
         }
     
+    },
+    DATO_BOOLEANO{
+        @Override
+        public String obtenerColor(String lexema) {
+             return "#FA6800";
+        }
+        
+    
+    },
+    DATO_CADENA{
+        @Override
+        public String obtenerColor(String lexema) {
+            return "E51400";
+        }
+    
+    },
+    SIGNO_SIMBOLO{
+        @Override
+        public String obtenerColor(String lexema) {
+            switch (lexema) {
+                case "(":
+                    return "#9AD8DB";
+                case ")":                
+                    return "#9AD8DB";
+                 case "[":
+                    return "#DBA49A";
+                 case "]":                 
+                    return "#DBA49A";
+                  case "{":               
+                    return "#DBD29A";
+                case "}":              
+                    return "#DBD29A";
+                 case ",":
+                    return "#B79ADB";
+                 case ".":                    
+                    return "#9ADBA6";
+                default:
+                    return "#FFFFFF";
+            }
+        }
+    
+    },
+    DATO_CARACTER{
+        @Override
+        public String obtenerColor(String lexema) {
+            return "#0050EF";       
+        }
+    },
+    DATO_DECIMAL{
+        @Override
+        public String obtenerColor(String lexema) {
+            return "FFFF88";
+        }
+        
+    
+    },
+    DATO_ENTERO{
+        @Override
+        public String obtenerColor(String lexema) {
+            return "#1BA1E2";
+        }
     };
     
 

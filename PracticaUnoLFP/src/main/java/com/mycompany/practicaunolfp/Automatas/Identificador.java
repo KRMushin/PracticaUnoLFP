@@ -28,21 +28,40 @@ public class Identificador {
         // estado inicial s0
         this.estadoActual = Produccion.S0;
     }
+    public void reiniciar() {
+        this.estadoActual = Produccion.S0;
+    }
     
     public boolean esIdentificador(String lexema){
+        
+        System.out.println("EVALUACION EN IDENTIFICARO '" + lexema + "'");
+         reiniciar();  // Reinicia el estado para cada lexema
+
         for (int i = 0; i < lexema.length(); i++) {
-              char caracter = lexema.charAt(i);
-                    if (Character.isLetter(caracter) && estadoActual == Produccion.S0) {
-                         estadoActual = Produccion.S1;
-                     }else if (estadoActual == Produccion.S1 && (Character.isLetterOrDigit(caracter) || caracter == '_')) {
-                         estadoActual = Produccion.S1;
-                     }else{
-                         estadoActual = Produccion.ERROR;
-                         break; //salida
-                     }
-                  
-               }    
-    return estadoActual == Produccion.S1;
+            char caracter = lexema.charAt(i);
+
+            if (estadoActual == Produccion.S0) {
+                // Estado S0: Solo aceptamos letras al inicio
+                if (Character.isLetter(caracter)) {
+                    estadoActual = Produccion.S1;
+                } else {
+                    estadoActual = Produccion.ERROR;
+                    break;
+                }
+            } else if (estadoActual == Produccion.S1) {
+                // Estado S1: Aceptamos letras, dígitos o guion bajo
+                if (Character.isLetterOrDigit(caracter) || caracter == '_') {
+                    // Permanece en S1 si es válido
+                    estadoActual = Produccion.S1;
+                } else {
+                    estadoActual = Produccion.ERROR;
+                    break;
+                }
+            }
+        }
+
+        // El lexema es un identificador válido si terminó en S1
+        return estadoActual == Produccion.S1 && lexema.length() > 0;
     }
     
     

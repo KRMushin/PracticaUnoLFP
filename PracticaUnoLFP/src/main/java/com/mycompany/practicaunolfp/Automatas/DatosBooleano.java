@@ -34,7 +34,9 @@ public class DatosBooleano {
     public DatosBooleano() {
         this.estadoActual = Produccion.S0;
     }
-
+    public void reiniciar() {
+        this.estadoActual = Produccion.S0;
+    }
     public boolean esBooleanoValido(String lexema) {
         for (int i = 0; i < lexema.length(); i++) {
             char caracter = lexema.charAt(i);

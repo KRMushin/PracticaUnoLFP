@@ -37,6 +37,9 @@ public class OperadorLogico {
         // estado inicial S0
         this.estadoActual = Produccion.S0;
     }
+    public void reiniciar() {
+        this.estadoActual = Produccion.S0;
+    }
     
     public boolean esOperadorLogico(String lexema) {
         for (int i = 0; i < lexema.length(); i++) {

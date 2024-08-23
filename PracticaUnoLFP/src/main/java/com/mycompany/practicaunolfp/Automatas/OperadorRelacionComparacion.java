@@ -35,6 +35,9 @@ public class OperadorRelacionComparacion {
         // Estado inicial S0
         this.estadoActual = Produccion.S0;
     }
+    public void reiniciar() {
+        this.estadoActual = Produccion.S0;
+    }
     
    public boolean esOperadorRelacionalComparacion(String lexema) {
         for (int i = 0; i < lexema.length(); i++) {

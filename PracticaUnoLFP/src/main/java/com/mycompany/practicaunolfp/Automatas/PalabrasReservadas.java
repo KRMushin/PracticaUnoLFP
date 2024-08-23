@@ -29,8 +29,13 @@ public class PalabrasReservadas {
     public PalabrasReservadas() {
         this.estadoActual = Produccion.S0;
     }
+    public void reiniciar() {
+        this.estadoActual = Produccion.S0;
+    }
 
-    public boolean esPalabraReservada(String lexema) {
+   public boolean esPalabraReservada(String lexema) {
+        reiniciar();
+        
         for (int i = 0; i < lexema.length(); i++) {
             char caracter = lexema.charAt(i);
 
@@ -39,15 +44,19 @@ public class PalabrasReservadas {
                     if (esLetraMayuscula(caracter)) {
                         estadoActual = Produccion.S1;  // Transición al estado S1 si es una mayúscula
                     } else {
-                        estadoActual = Produccion.ERROR;
+                        estadoActual = Produccion.ERROR; // Si no comienza con mayúscula, es un error
                     }
                     break;
 
                 case S1:
                     if (esLetraMinuscula(caracter)) {
                         // Permanece en S1 si es una minúscula
-                    } else {
-                        estadoActual = Produccion.ERROR;
+                                                estadoActual = Produccion.S1;
+
+                    }else if (caracter == '.') {
+                        estadoActual = Produccion.S1;
+                    }  else {
+                        estadoActual = Produccion.ERROR; // Cualquier otra cosa también es un error
                     }
                     break;
 
@@ -61,7 +70,7 @@ public class PalabrasReservadas {
             }
         }
 
-        return estadoActual == Produccion.S1;  // La palabra es válida si termina en S1
+        return estadoActual == Produccion.S1;  // La palabra es válida solo si termina en S1
     }
 
     private boolean esLetraMayuscula(char caracter) {
