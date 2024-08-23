@@ -28,7 +28,7 @@ public class OperadorLogico {
     */
     
     public enum Produccion {
-        S0, S1, S2, S3, S4, S5, S6, ERROR;
+        S0, S1, S2, S3, S4, S5, S6, S7, ERROR;
     }
     
     private Produccion estadoActual;
@@ -42,6 +42,7 @@ public class OperadorLogico {
     }
     
     public boolean esOperadorLogico(String lexema) {
+        reiniciar();
         for (int i = 0; i < lexema.length(); i++) {
             char caracter = lexema.charAt(i);
             
@@ -76,7 +77,7 @@ public class OperadorLogico {
                     
                 case S4:
                     if (caracter == 'r') {
-                        estadoActual = Produccion.S5;
+                        estadoActual = Produccion.S3; // "Or" aceptado
                     } else {
                         estadoActual = Produccion.ERROR;
                     }
@@ -92,7 +93,7 @@ public class OperadorLogico {
                     
                 case S5:
                     if (caracter == 't') {
-                        estadoActual = Produccion.S3;
+                        estadoActual = Produccion.S3; // "Not" aceptado
                     } else {
                         estadoActual = Produccion.ERROR;
                     }
@@ -104,7 +105,7 @@ public class OperadorLogico {
             }
             
             if (estadoActual == Produccion.ERROR) {
-                break; // salida en caso de error
+                break; // Salida en caso de error
             }
         }
         

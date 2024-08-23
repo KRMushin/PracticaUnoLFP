@@ -39,6 +39,8 @@ public class DatosDecimales {
         this.estadoActual = Produccion.S0;
     }
     public boolean esDecimalValido(String lexema) {
+                reiniciar();
+
         for (int i = 0; i < lexema.length(); i++) {
             char caracter = lexema.charAt(i);
 

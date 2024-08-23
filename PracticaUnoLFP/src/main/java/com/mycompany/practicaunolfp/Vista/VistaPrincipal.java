@@ -25,7 +25,7 @@ import javax.swing.JTextField;
  */
 public class VistaPrincipal extends javax.swing.JFrame {
     
-    ControladorPrincipal controlador = new ControladorPrincipal(this);
+
     LectorArchivo lectorArchivo = new LectorArchivo();
 
     public JButton getAnalizar() {
@@ -45,22 +45,21 @@ public class VistaPrincipal extends javax.swing.JFrame {
         configuracionFrame();
     }
     public void mostrarPanelesToken(List<TokenPanel> paneles, int numeroFilas , int numeroColumnas){
-        panelGrafico.removeAll();
-    panelGrafico.setLayout(new BoxLayout(panelGrafico, BoxLayout.Y_AXIS));
-    
-    JPanel gridPanel = new JPanel();
-    gridPanel.setLayout(new GridLayout(numeroFilas, numeroColumnas));
+            System.out.println("numeroFil" + numeroFilas + " numeroCOl " + numeroColumnas + " numeroPaneles" + paneles.size());
+                panelGrafico.removeAll();
+                panelGrafico.setLayout(new BoxLayout(panelGrafico, BoxLayout.Y_AXIS));
 
-    int totalTokens = Math.min(paneles.size(), numeroFilas * numeroColumnas);
+            JPanel gridPanel = new JPanel();
+            gridPanel.setLayout(new GridLayout(numeroFilas, numeroColumnas));
 
-    for (int i = 0; i < totalTokens; i++) {
-        TokenPanel panel = paneles.get(i);
-        gridPanel.add(panel);
-    }
-    
-    // Añadir el panel de la cuadrícula al panel gráfico principal
-    panelGrafico.add(gridPanel);
-    this.pack();
+            int totalTokens = Math.min(paneles.size(), numeroFilas * numeroColumnas);
+
+            for (int i = 0; i < totalTokens; i++) {
+                TokenPanel panel = paneles.get(i);
+                gridPanel.add(panel);
+            }
+                  panelGrafico.add(gridPanel);
+                  this.pack();
     }
     
     
@@ -218,7 +217,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     private void analizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analizarActionPerformed
         try {
+               ControladorPrincipal controlador = new ControladorPrincipal(this);
                controlador.analizarEntrada(numeroFilas.getText(),numeroColumnas.getText(),areaTexto.getText().replace("\n", " "));  
+               this.pack();
         } catch (Exception e) {
             System.out.println("Error: error en el analisis de datos" + e.getMessage()  );
         }        

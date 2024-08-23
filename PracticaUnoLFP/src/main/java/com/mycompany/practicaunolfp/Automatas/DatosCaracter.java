@@ -10,16 +10,18 @@ package com.mycompany.practicaunolfp.Automatas;
  */
 public class DatosCaracter {
     /*
-    N = { S0, S1 }
+    N = { S0, S1, S2, ERROR }
     T = { LETRA, DIGITO, SIMBOLO } 
     P = {
-        S0 --> [LETRA, DIGITO, SIMBOLO] S1  
-        S1 --- LAMBDA  
+        S0 --> ' S1
+        S1 --> [ LETRA, DIGITO, SIMBOLO ] S2
+        S2 --> ' S3
     }
     S = { S0 }
     */
-     public enum Produccion {
-        S0, S1, ERROR;
+    
+    public enum Produccion {
+        S0, S1, S2, S3 ,ERROR;
     }
 
     private Produccion estadoActual;
@@ -27,45 +29,69 @@ public class DatosCaracter {
     public DatosCaracter() {
         this.estadoActual = Produccion.S0;
     }
+
     public void reiniciar() {
         this.estadoActual = Produccion.S0;
     }
 
-    public boolean esCaracterValido(char caracter) {
-        switch (estadoActual) {
-            case S0:
-                if (esDigito(caracter)) {
-                    estadoActual = Produccion.S1;  
-                } else if (esLetra(caracter)) {
-                    estadoActual = Produccion.S1; 
-                } else if (esSimbolo(caracter)) {
-                    estadoActual = Produccion.S1;  
-                } else {
+    public boolean esCaracterValido(String lexema) {
+        reiniciar();
+        
+        for (int i = 0; i < lexema.length(); i++) {
+            char caracter = lexema.charAt(i);
+            
+            switch (estadoActual) {
+                case S0:
+                    if (caracter == '\'') {
+                        estadoActual = Produccion.S1; // Encuentra la primera comilla simple
+                    } else {
+                        estadoActual = Produccion.ERROR;
+                    }
+                    break;
+
+                case S1:
+                    if (esDigito(caracter) || esLetra(caracter) || esSimbolo(caracter)) {
+                        estadoActual = Produccion.S2; // Encuentra un carácter válido
+                    } else {
+                        estadoActual = Produccion.ERROR;
+                    }
+                    break;
+
+                case S2:
+                    if (caracter == '\'') {
+                        estadoActual = Produccion.S3; // Encuentra la segunda comilla simple, acepta la entrada
+                    } else {
+                        estadoActual = Produccion.ERROR;
+                    }
+                    break;
+
+                default:
                     estadoActual = Produccion.ERROR;
-                }
-                break;
+                    break;
+            }
 
-            default:
-                estadoActual = Produccion.ERROR;
-                break;
+            if (estadoActual == Produccion.ERROR) {
+                break; // Salida en caso de error
+            }
         }
-
-        return estadoActual == Produccion.S1;
+        
+        // El carácter es válido si terminamos en el estado S3
+        return estadoActual == Produccion.S3;
     }
 
     private boolean esDigito(char caracter) {
-        // Verifica si el charrr es un dígito
+        // Verifica si el carácter es un dígito
         return caracter >= '0' && caracter <= '9';
     }
 
     private boolean esLetra(char caracter) {
-        //verificacion de datos mayusculas o minuzculas
+        // Verifica si el carácter es una letra mayúscula o minúscula
         return (caracter >= 'A' && caracter <= 'Z') || (caracter >= 'a' && caracter <= 'z');
     }
 
     private boolean esSimbolo(char caracter) {
-        // verifica algunos caracteres permitidos s
-        char[] simbolosPermitidos = { '!', '@', '#', '$', '%', '^', '&', '|', ';', ':', '\'', '\"', ',', '.', '<', '>', '?' };
+        // Verifica si el carácter es uno de los símbolos permitidos
+        char[] simbolosPermitidos = { '!', '@', '#', '$', '%', '^', '&', '|', ';', ':', ',', '.', '<', '>', '?' };
         for (char simbolo : simbolosPermitidos) {
             if (caracter == simbolo) {
                 return true;
@@ -73,5 +99,4 @@ public class DatosCaracter {
         }
         return false;
     }
-    
 }

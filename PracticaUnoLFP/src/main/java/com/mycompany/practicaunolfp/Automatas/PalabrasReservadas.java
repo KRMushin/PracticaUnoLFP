@@ -11,17 +11,22 @@ package com.mycompany.practicaunolfp.Automatas;
 public class PalabrasReservadas {
     /*
     N
-    T = { A-Z, a-z}
+    T = { A-Z, a-z , .}
     P = {
         
         S0 ---> [A-Z]S1
         s1 ----> [ a- z]s1
         s1 --->  lambda
+        S1 ----> [.] S2
+        S2 ---> [ A -Z ,] S3
+        S3 ---> [ a-z]s3
+        S3 ----> [A-Z]S3
+        s3 ----> lambda
     } 
     S = S0
     */
     public enum Produccion {
-        S0, S1, ERROR;
+        S0, S1, S2, S3 , ERROR;
     }
 
     private Produccion estadoActual;
@@ -41,36 +46,48 @@ public class PalabrasReservadas {
 
             switch (estadoActual) {
                 case S0:
-                    if (esLetraMayuscula(caracter)) {
-                        estadoActual = Produccion.S1;  // Transición al estado S1 si es una mayúscula
-                    } else {
-                        estadoActual = Produccion.ERROR; // Si no comienza con mayúscula, es un error
-                    }
+                            if (esLetraMayuscula(caracter)) {
+                                estadoActual = Produccion.S1;
+                             }else{
+                                estadoActual = Produccion.ERROR;
+                            }
                     break;
-
                 case S1:
-                    if (esLetraMinuscula(caracter)) {
-                        // Permanece en S1 si es una minúscula
-                                                estadoActual = Produccion.S1;
-
-                    }else if (caracter == '.') {
-                        estadoActual = Produccion.S1;
-                    }  else {
-                        estadoActual = Produccion.ERROR; // Cualquier otra cosa también es un error
-                    }
+                            if (esLetraMinuscula(caracter)) {
+                                estadoActual = Produccion.S1;
+                            }
+                            else if (caracter == '.') {
+                                estadoActual = Produccion.S2;
+                            }else {
+                                estadoActual = Produccion.ERROR;
+                            }
                     break;
-
+                case S2:
+                            if (esLetraMayuscula(caracter)) {
+                                estadoActual = Produccion.S3;
+                            }else{
+                                estadoActual = Produccion.ERROR;
+                            }
+                    break;
+                case S3:
+                        if (esLetraMayuscula(caracter)) {
+                              estadoActual = Produccion.S3;
+                         }else if (esLetraMinuscula(caracter)) {
+                               estadoActual = Produccion.S3;
+                         }else{
+                             estadoActual = Produccion.ERROR;
+                         }
+                    break;
                 default:
                     estadoActual = Produccion.ERROR;
-                    break;
             }
-
+           
             if (estadoActual == Produccion.ERROR) {
-                break;  // Salida en caso de error
+                break; 
             }
         }
 
-        return estadoActual == Produccion.S1;  // La palabra es válida solo si termina en S1
+        return estadoActual == Produccion.S1 || estadoActual == Produccion.S3;  // La palabra es válida solo si termina en S1
     }
 
     private boolean esLetraMayuscula(char caracter) {

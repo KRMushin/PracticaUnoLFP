@@ -31,8 +31,13 @@ public class OperadorAritmetico {
     public OperadorAritmetico() {
         this.estadoActual = Produccion.S0;
     }
+    public void reiniciar() {
+        this.estadoActual = Produccion.S0;
+    }
     
      public boolean esOperadorAritmetico(String lexema) {
+        reiniciar();
+
         for (int i = 0; i < lexema.length(); i++) {
             char caracter = lexema.charAt(i);
 
@@ -57,15 +62,10 @@ public class OperadorAritmetico {
 
                 case S3:
                     if (caracter == 'd') {
-                        estadoActual = Produccion.S4;
+                        estadoActual = Produccion.S4;  // Finaliza el procesamiento de "Mod"
                     } else {
                         estadoActual = Produccion.ERROR;
                     }
-                    break;
-
-                case S1:
-                case S4:
-                    estadoActual = Produccion.ERROR;  // No permite más transiciones después de un operador válido
                     break;
 
                 default:
@@ -73,6 +73,9 @@ public class OperadorAritmetico {
                     break;
             }
 
+            if (estadoActual == Produccion.S1 || estadoActual == Produccion.S4) {
+                break;
+            }
             if (estadoActual == Produccion.ERROR) {
                 break;
             }
@@ -80,9 +83,7 @@ public class OperadorAritmetico {
 
         return estadoActual == Produccion.S1 || estadoActual == Produccion.S4;
     }
-    public void reiniciar() {
-        this.estadoActual = Produccion.S0;
-    }
+    
     
 }
 

@@ -11,7 +11,7 @@ package com.mycompany.practicaunolfp.Automatas;
 public class Identificador {
     /*
     N = { S0 , S1}
-    T = { A-Z , a-z ,  _ , 0- 9 }
+    T = { A-Z , a-z ,  _ , 0- 9, }
     P = s0 --> 
     S = S0
     */
@@ -34,7 +34,6 @@ public class Identificador {
     
     public boolean esIdentificador(String lexema){
         
-        System.out.println("EVALUACION EN IDENTIFICARO '" + lexema + "'");
          reiniciar();  // Reinicia el estado para cada lexema
 
         for (int i = 0; i < lexema.length(); i++) {

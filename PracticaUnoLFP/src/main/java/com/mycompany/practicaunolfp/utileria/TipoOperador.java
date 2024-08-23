@@ -37,10 +37,13 @@ public enum TipoOperador {
             switch (lexema) {
                 case "And":
                 return "#414ED9";
+                
                 case "Or":
                 return "#41D95D";
-                 case "Not":
+                 
+                case "Not":
                 return "#A741D9";
+                
                 default:
                     return "#000000"; // Negro por defecto
             }
@@ -104,7 +107,7 @@ public enum TipoOperador {
     DATO_CADENA{
         @Override
         public String obtenerColor(String lexema) {
-            return "E51400";
+            return "#FF0000";
         }
     
     },
@@ -143,7 +146,7 @@ public enum TipoOperador {
     DATO_DECIMAL{
         @Override
         public String obtenerColor(String lexema) {
-            return "FFFF88";
+            return "#FFF176";
         }
         
     

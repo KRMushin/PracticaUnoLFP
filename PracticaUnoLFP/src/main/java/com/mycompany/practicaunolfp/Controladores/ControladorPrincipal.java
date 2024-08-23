@@ -38,13 +38,11 @@ public class ControladorPrincipal {
      
         this.analizadorLexico = new AnalizadorLexico(entradaAnalisis);
         List<Token> tokens = analizadorLexico.obtenerLexemas(entradaAnalisis);
-        if ((numeroFil * numeroCol) < tokens.size()) {
+        if ((numeroFil * numeroCol) < tokens.size() ) {
             mostrarMensaje("El numero de filas y columnas ingresador no puede soportar la cantidad de tokens encontrados \n Numero Tokens: " + tokens.size());
             return;
         }
         mostrarLexemas(tokens);
-        System.out.println("si");
-        System.out.println(obtenerTokenPaneles(tokens,numeroFil,numeroCol).size());
         vistaPrincipal.mostrarPanelesToken(obtenerTokenPaneles(tokens,numeroFil,numeroCol), numeroFil, numeroCol);
     }
     private List<TokenPanel> obtenerTokenPaneles(List<Token> tokens, int numeroFilas, int numeroColumnas){

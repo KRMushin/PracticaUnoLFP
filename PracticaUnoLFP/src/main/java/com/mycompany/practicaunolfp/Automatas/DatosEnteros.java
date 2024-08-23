@@ -34,6 +34,7 @@ public class DatosEnteros {
     }
     
     public boolean esEntero(String lexema){
+        reiniciar();
         for (int i = 0; i < lexema.length(); i++) {
               char caracter = lexema.charAt(i);
               

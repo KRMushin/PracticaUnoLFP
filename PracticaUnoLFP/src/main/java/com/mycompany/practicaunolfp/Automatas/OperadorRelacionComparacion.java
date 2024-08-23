@@ -39,14 +39,16 @@ public class OperadorRelacionComparacion {
         this.estadoActual = Produccion.S0;
     }
     
-   public boolean esOperadorRelacionalComparacion(String lexema) {
+    public boolean esOperadorRelacionalComparacion(String lexema) {
+                reiniciar();
+
         for (int i = 0; i < lexema.length(); i++) {
             char caracter = lexema.charAt(i);
             
             switch (estadoActual) {
                 case S0:
                     if (caracter == '=') {
-                        estadoActual = Produccion.S1;  // Igual o posible ==
+                        estadoActual = Produccion.S1;  // Posible ==
                     } else if (caracter == '>') {
                         estadoActual = Produccion.S2;  // Mayor que o posible >=
                     } else if (caracter == '<') {
@@ -60,7 +62,7 @@ public class OperadorRelacionComparacion {
                     if (caracter == '=') {
                         estadoActual = Produccion.S4;  // Igual (==)
                     } else {
-                        estadoActual = Produccion.ERROR;
+                        estadoActual = Produccion.ERROR; // No se permite solo "="
                     }
                     break;
                     
@@ -68,15 +70,17 @@ public class OperadorRelacionComparacion {
                     if (caracter == '=') {
                         estadoActual = Produccion.S4;  // Mayor o igual (>=)
                     } else {
-                        estadoActual = Produccion.ERROR;
+                        estadoActual = Produccion.ERROR; // Mayor que (>) ya es aceptado
                     }
                     break;
                     
                 case S3:
-                    if (caracter == '=' || caracter == '>') {
-                        estadoActual = Produccion.S4;  // Menor o igual (<=) o diferente (<>)
+                    if (caracter == '=') {
+                        estadoActual = Produccion.S4;  // Menor o igual (<=)
+                    } else if (caracter == '>') {
+                        estadoActual = Produccion.S4;  // Diferente (<>)
                     } else {
-                        estadoActual = Produccion.ERROR;
+                        estadoActual = Produccion.ERROR; // Menor que (<) ya es aceptado
                     }
                     break;
 
@@ -90,7 +94,7 @@ public class OperadorRelacionComparacion {
             }
         }
         
-        // El operador relacional es válido si terminamos en el estado S4
-        return estadoActual == Produccion.S4;
+        // El operador relacional es válido si terminamos en el estado S2, S3, o S4
+        return estadoActual == Produccion.S2 || estadoActual == Produccion.S3 || estadoActual == Produccion.S4;
     }
 }

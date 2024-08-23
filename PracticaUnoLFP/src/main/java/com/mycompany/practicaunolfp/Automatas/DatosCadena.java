@@ -10,18 +10,18 @@ package com.mycompany.practicaunolfp.Automatas;
  */
 public class DatosCadena {
     /*GRAMATICA
-    N = { S0 , S1}
-    T = {A-Z, a-z , 0-9 }
-    P = {
-            S0 ---->[ 0-9, A-Z,a-z] S1
-            S1 ---->[ 0-9, A-Z,a-z]s1
-            s1 ---> lambda
+N = { S0 , S1, S2 }
+T = {A-Z, a-z , 0-9, " }
+P = {
+        S0 ----> " S1
+        S1 ----> [letras, números] S1
+        S1 ----> " S2
     
-    }
-    S = { S0 }
-    */
+}
+S = { S0 }
+*/
     public enum Produccion {
-        S0, S1, ERROR;
+        S0, S1, S2 , ERROR;
     }
 
     private Produccion estadoActual;
@@ -34,35 +34,50 @@ public class DatosCadena {
     }
 
     public boolean esCadenaValida(String lexema) {
-        for (int i = 0; i < lexema.length(); i++) {
-            char caracter = lexema.charAt(i);
+                reiniciar();
 
-            switch (estadoActual) {
-                case S0:
-                    if (Character.isLetterOrDigit(caracter)) {
-                        estadoActual = Produccion.S1;  
-                    } else {
-                        estadoActual = Produccion.ERROR;
+                for (int i = 0; i < lexema.length(); i++) {
+                    char caracter = lexema.charAt(i);
+
+                    switch (estadoActual) {
+                        case S0:
+                            if (caracter == '"') {
+                                estadoActual = Produccion.S1; // Encuentra la primera comilla doble
+                            } else {
+                                estadoActual = Produccion.ERROR;
+                            }
+                            break;
+
+                        case S1:
+                            if (esLetra(caracter) || esDigito(caracter)) {
+                                estadoActual = Produccion.S1; // Permanece en S1 si es letra o número
+                            } else if (caracter == '"') {
+                                estadoActual = Produccion.S2; // Encuentra la segunda comilla doble
+                            } else {
+                                estadoActual = Produccion.ERROR;
+                            }
+                            break;
+
+                        default:
+                            estadoActual = Produccion.ERROR;
+                            break;
                     }
-                    break;
 
-                case S1:
-                    if (Character.isLetterOrDigit(caracter)) {
-                    } else {
-                        estadoActual = Produccion.ERROR;
+                    if (estadoActual == Produccion.ERROR) {
+                        break; // Salida en caso de error
                     }
-                    break;
+                }
 
-                default:
-                    estadoActual = Produccion.ERROR;
-                    break;
+                // La cadena es válida si terminamos en el estado S2
+                return estadoActual == Produccion.S2;
             }
 
-            if (estadoActual == Produccion.ERROR) {
-                break;  
+            private boolean esLetra(char caracter) {
+                return (caracter >= 'A' && caracter <= 'Z') || (caracter >= 'a' && caracter <= 'z');
             }
-        }
-        return estadoActual == Produccion.S1;
-    }
-    
+
+            private boolean esDigito(char caracter) {
+                return caracter >= '0' && caracter <= '9';
+            }
+
 }

@@ -38,6 +38,7 @@ public class DatosBooleano {
         this.estadoActual = Produccion.S0;
     }
     public boolean esBooleanoValido(String lexema) {
+        reiniciar();
         for (int i = 0; i < lexema.length(); i++) {
             char caracter = lexema.charAt(i);
 
@@ -53,7 +54,7 @@ public class DatosBooleano {
                     break;
 
                 case S2:
-                    if (caracter == 'R') {
+                    if (caracter == 'r') {
                         estadoActual = Produccion.S3;
                     } else {
                         estadoActual = Produccion.ERROR;
@@ -61,7 +62,7 @@ public class DatosBooleano {
                     break;
 
                 case S3:
-                    if (caracter == 'U') {
+                    if (caracter == 'u') {
                         estadoActual = Produccion.S4;
                     } else {
                         estadoActual = Produccion.ERROR;
@@ -69,7 +70,7 @@ public class DatosBooleano {
                     break;
 
                 case S4:
-                    if (caracter == 'E') {
+                    if (caracter == 'e') {
                         estadoActual = Produccion.ACEPTACION;
                     } else {
                         estadoActual = Produccion.ERROR;
@@ -77,7 +78,7 @@ public class DatosBooleano {
                     break;
 
                 case S5:
-                    if (caracter == 'A') {
+                    if (caracter == 'a') {
                         estadoActual = Produccion.S6;
                     } else {
                         estadoActual = Produccion.ERROR;
@@ -85,7 +86,7 @@ public class DatosBooleano {
                     break;
 
                 case S6:
-                    if (caracter == 'L') {
+                    if (caracter == 'l') {
                         estadoActual = Produccion.S7;
                     } else {
                         estadoActual = Produccion.ERROR;
@@ -93,7 +94,7 @@ public class DatosBooleano {
                     break;
 
                 case S7:
-                    if (caracter == 'S') {
+                    if (caracter == 's') {
                         estadoActual = Produccion.S8;
                     } else {
                         estadoActual = Produccion.ERROR;
@@ -101,7 +102,7 @@ public class DatosBooleano {
                     break;
 
                 case S8:
-                    if (caracter == 'E') {
+                    if (caracter == 'e') {
                         estadoActual = Produccion.ACEPTACION;
                     } else {
                         estadoActual = Produccion.ERROR;
