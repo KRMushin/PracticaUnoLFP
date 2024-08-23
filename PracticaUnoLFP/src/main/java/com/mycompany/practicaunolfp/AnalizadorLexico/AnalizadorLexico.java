@@ -89,18 +89,19 @@ public class AnalizadorLexico {
               String color = TipoOperador.DATO_BOOLEANO.obtenerColor(lexema);
               tokens.add(new Token(lexema,color,"Dato Booleano"));
               
-           } 
-           else if (esOperadorAritmetico(lexema)) {
-
-                String color = TipoOperador.OPERADOR_ARITMETICO.obtenerColor(lexema);
-                tokens.add(new Token(lexema,color,"Operador Aritmetico"));
-              
-          } else if (esPalabraReservada(lexema)) {
+           }
+           else if (esPalabraReservada(lexema)) {
                 
                 String color = TipoOperador.PALABRA_RESERVADA.obtenerColor(lexema);
                 tokens.add(new Token(lexema,color,"PalabraReservada"));
                 
             }
+           else if (esOperadorAritmetico(lexema)) {
+
+                String color = TipoOperador.OPERADOR_ARITMETICO.obtenerColor(lexema);
+                tokens.add(new Token(lexema,color,"Operador Aritmetico"));
+              
+          } 
            else if (esIdentificador(lexema)) {
                 String color = TipoOperador.IDENTIFICADOR.obtenerColor(lexema);
                  tokens.add(new Token(lexema,color,"Identificador"));
@@ -132,8 +133,6 @@ public class AnalizadorLexico {
           else if (esDatoCaracter(lexema)) {
               String color = TipoOperador.DATO_CARACTER.obtenerColor(lexema);
               tokens.add(new Token(lexema,color," Dato Caracter"));
-          }else {
-              tokens.add(new Token(lexema, "Error", "Lexema no reconocido"));
           }
       }
       

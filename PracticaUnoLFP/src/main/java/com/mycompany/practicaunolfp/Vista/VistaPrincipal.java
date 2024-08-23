@@ -218,7 +218,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private void analizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analizarActionPerformed
         try {
                ControladorPrincipal controlador = new ControladorPrincipal(this);
-               controlador.analizarEntrada(numeroFilas.getText(),numeroColumnas.getText(),areaTexto.getText().replace("\n", " "));  
+               controlador.analizarEntrada(numeroFilas.getText(),numeroColumnas.getText(),areaTexto.getText());  
                this.pack();
         } catch (Exception e) {
             System.out.println("Error: error en el analisis de datos" + e.getMessage()  );

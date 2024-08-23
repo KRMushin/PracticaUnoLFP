@@ -49,35 +49,35 @@ public class OperadorAritmetico {
                         estadoActual = Produccion.S2;  // Comienza a procesar "Mod"
                     } else {
                         estadoActual = Produccion.ERROR;
+                        return false;
                     }
-                    break;
 
                 case S2:
                     if (caracter == 'o') {
                         estadoActual = Produccion.S3;
                     } else {
                         estadoActual = Produccion.ERROR;
+                        return false;
                     }
-                    break;
 
                 case S3:
                     if (caracter == 'd') {
                         estadoActual = Produccion.S4;  // Finaliza el procesamiento de "Mod"
+                        break;
                     } else {
                         estadoActual = Produccion.ERROR;
+                        return false;
                     }
-                    break;
-
                 default:
                     estadoActual = Produccion.ERROR;
-                    break;
+                    return false;
             }
 
             if (estadoActual == Produccion.S1 || estadoActual == Produccion.S4) {
                 break;
             }
             if (estadoActual == Produccion.ERROR) {
-                break;
+                return false;
             }
         }
 
