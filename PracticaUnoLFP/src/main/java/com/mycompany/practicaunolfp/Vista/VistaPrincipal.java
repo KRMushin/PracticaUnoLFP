@@ -4,6 +4,7 @@
  */
 package com.mycompany.practicaunolfp.Vista;
 
+import com.mycompany.practicaunolfp.AnalizadorLexico.Token;
 import com.mycompany.practicaunolfp.Controladores.ControladorPrincipal;
 import com.mycompany.practicaunolfp.utileria.LectorArchivo;
 import com.mycompany.practicaunolfp.utileria.TokenPanel;
@@ -11,11 +12,13 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -27,6 +30,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
     
 
     LectorArchivo lectorArchivo = new LectorArchivo();
+    private int numeroFil = 0;
+    private int numeroCol = 0;
+    List<TokenPanel> paneles = new ArrayList<>();
 
     public JButton getAnalizar() {
         return analizar;
@@ -44,22 +50,15 @@ public class VistaPrincipal extends javax.swing.JFrame {
         initComponents();
         configuracionFrame();
     }
-    public void mostrarPanelesToken(List<TokenPanel> paneles, int numeroFilas , int numeroColumnas){
-            System.out.println("numeroFil" + numeroFilas + " numeroCOl " + numeroColumnas + " numeroPaneles" + paneles.size());
-                panelGrafico.removeAll();
-                panelGrafico.setLayout(new BoxLayout(panelGrafico, BoxLayout.Y_AXIS));
-
-            JPanel gridPanel = new JPanel();
-            gridPanel.setLayout(new GridLayout(numeroFilas, numeroColumnas));
-
-            int totalTokens = Math.min(paneles.size(), numeroFilas * numeroColumnas);
-
-            for (int i = 0; i < totalTokens; i++) {
-                TokenPanel panel = paneles.get(i);
-                gridPanel.add(panel);
-            }
-                  panelGrafico.add(gridPanel);
-                  this.pack();
+    public void mostrarPanelesToken(List<Token> tokens){
+        
+        for (int i = 0; i < tokens.size() && i < paneles.size(); i++) {
+            Token token = tokens.get(i);
+            TokenPanel panel = paneles.get(i);
+            panel.asignarToken(token);
+        }
+        this.pack();
+            
     }
     
     
@@ -86,6 +85,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         numeroFilas = new javax.swing.JTextField();
         numeroColumnas = new javax.swing.JTextField();
         analizar = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         areaTexto = new javax.swing.JTextArea();
         panelGrafico = new javax.swing.JPanel();
@@ -116,6 +116,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Establecer Tamaño");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout barraBotonesLayout = new javax.swing.GroupLayout(barraBotones);
         barraBotones.setLayout(barraBotonesLayout);
         barraBotonesLayout.setHorizontalGroup(
@@ -130,8 +137,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(numeroColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(analizar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
@@ -148,7 +157,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(numeroFilas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(numeroColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(analizar))
+                    .addComponent(analizar)
+                    .addComponent(jButton3))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -218,12 +228,36 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private void analizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analizarActionPerformed
         try {
                ControladorPrincipal controlador = new ControladorPrincipal(this);
-               controlador.analizarEntrada(numeroFilas.getText(),numeroColumnas.getText(),areaTexto.getText());  
-               this.pack();
+               controlador.analizarEntrada(numeroFil,numeroCol,areaTexto.getText().replace("\n", " "));  
         } catch (Exception e) {
             System.out.println("Error: error en el analisis de datos" + e.getMessage()  );
         }        
     }//GEN-LAST:event_analizarActionPerformed
+/*  creacion y asignacion de paneles en grafico*/
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+            this.numeroFil = Integer.parseInt(numeroFilas.getText());
+            this.numeroCol = Integer.parseInt(numeroColumnas.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, " ingrese datos validos para filas y columnas");
+        }
+        paneles.clear();
+         panelGrafico.removeAll();
+         panelGrafico.setLayout(new BoxLayout(panelGrafico, BoxLayout.Y_AXIS));
+
+            JPanel gridPanel = new JPanel();
+            gridPanel.setLayout(new GridLayout(numeroFil, numeroCol));
+            
+            for (int i = 0; i < numeroFil; i++) {
+                   for (int j = 0; j < numeroCol; j++) {
+                        TokenPanel panel = new TokenPanel(i,j);
+                         paneles.add(panel);
+                         gridPanel.add(panel);
+                }
+            }
+            panelGrafico.add(gridPanel);
+            this.pack();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton analizar;
@@ -231,6 +265,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel barraBotones;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

@@ -34,12 +34,16 @@ public class TokenPanel extends JPanel{
     
     
 
-    public TokenPanel(int posicionX, int posicionY, Token token) {
+    public TokenPanel(int posicionX, int posicionY) {
         this.posicionX = posicionX;
         this.posicionY = posicionY;
-        this.token = token;
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        
+    }
+    public void asignarToken(Token token){
+        this.token = token;
         cambiarColor(token.getColor());
+    
     }
     private void cambiarColor(String color){
         try {
