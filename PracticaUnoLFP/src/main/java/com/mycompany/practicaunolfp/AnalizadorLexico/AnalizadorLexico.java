@@ -16,6 +16,7 @@ import com.mycompany.practicaunolfp.Automatas.OperadorLogico;
 import com.mycompany.practicaunolfp.Automatas.OperadorRelacionComparacion;
 import com.mycompany.practicaunolfp.Automatas.PalabrasReservadas;
 import com.mycompany.practicaunolfp.Automatas.SignoSimbolo;
+import com.mycompany.practicaunolfp.Automatas.SquareColorEspecial;
 import com.mycompany.practicaunolfp.Automatas.SquareColorSimple;
 import com.mycompany.practicaunolfp.utileria.TipoOperador;
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class AnalizadorLexico {
    private PalabrasReservadas palabrasReservadas;
    private SignoSimbolo signoSimbolo;
    private SquareColorSimple squareSimple;
+   private SquareColorEspecial squareEspecial;
 
 
    
@@ -66,6 +68,7 @@ public class AnalizadorLexico {
        this.palabrasReservadas = new PalabrasReservadas();
        this.signoSimbolo = new SignoSimbolo();
        this.squareSimple = new SquareColorSimple();
+       this.squareEspecial = new SquareColorEspecial();
     }  
     
     
@@ -95,6 +98,11 @@ public class AnalizadorLexico {
            }else if (esSquareSimple(lexema)) {
               String color = squareSimple.getColor();
               tokens.add(new Token(lexema,color," Square Simple"));
+          } else if (esSquareEspecial(lexema)) {
+                String color = squareEspecial.getColor();
+                String numeroFilas = squareEspecial.getNumeroFilas();
+                String numeroColumnas = squareEspecial.getNumeroColumnas();
+                tokens.add(new TokenEspecial(lexema,color, "square Especial",numeroFilas,numeroColumnas));
           }
            else if (esPalabraReservada(lexema)) {
                 
@@ -193,6 +201,9 @@ public class AnalizadorLexico {
     } 
     private boolean esSquareSimple(String lexema){
         return squareSimple.esSquareSimple(lexema);
+    }
+    private boolean esSquareEspecial(String lexema){
+        return squareEspecial.esSquareEspecial(lexema);
     }
     
 }

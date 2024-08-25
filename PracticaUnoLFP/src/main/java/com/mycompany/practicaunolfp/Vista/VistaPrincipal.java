@@ -5,6 +5,7 @@
 package com.mycompany.practicaunolfp.Vista;
 
 import com.mycompany.practicaunolfp.AnalizadorLexico.Token;
+import com.mycompany.practicaunolfp.AnalizadorLexico.TokenEspecial;
 import com.mycompany.practicaunolfp.Controladores.ControladorPrincipal;
 import com.mycompany.practicaunolfp.utileria.LectorArchivo;
 import com.mycompany.practicaunolfp.utileria.TokenPanel;
@@ -52,15 +53,94 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }
     public void mostrarPanelesToken(List<Token> tokens){
         
+        List<Token> tokensEspeciales = new ArrayList<>();
+        List<Token> tokensSimples = new ArrayList<>();
+        
         for (int i = 0; i < tokens.size() && i < paneles.size(); i++) {
             Token token = tokens.get(i);
+            if (token instanceof TokenEspecial) {
+                tokensEspeciales.add(token);
+            }else{
+                tokensSimples.add(token);
+            }
+        }
+        if (!tokensEspeciales.isEmpty()) {
+            mostrarTokensEspeciales(tokensEspeciales);
+        }
+        if (!tokensSimples.isEmpty()) {
+            mostrarTokensSimples(tokensSimples);           
+        }
+        this.pack();           
+    }
+    private void mostrarTokensEspeciales(List<Token> tokensEspeciales) {
+    int indiceEspeciales = 0;
+    
+    while (indiceEspeciales < tokensEspeciales.size()) {
+        boolean tokenAsignado = false;
+        
+        for (int i = 0; i < paneles.size(); i++) {
+            TokenPanel panel = paneles.get(i);
+            TokenEspecial token = (TokenEspecial) tokensEspeciales.get(indiceEspeciales);
+            
+            if (panel.getPosicionX() == token.getNumeroFila() && panel.getPosicionY() == token.getNumeroColumna()) {
+                panel.asignarToken(token);
+                panel.setPanelVacio(false);
+                indiceEspeciales++;
+                tokenAsignado = true;
+                break;
+            }
+        }
+
+        if (!tokenAsignado) {
+            System.out.println("Advertencia: No se encontró un panel para el token en la posición esperada.");
+            indiceEspeciales++;
+        }
+    }
+}
+
+    private void mostrarTokensSimples(List<Token> tokensSimples) {
+            int indiceToken = 0;
+
+            while (indiceToken < tokensSimples.size()) {
+                boolean tokenAsignado = false;
+
+                for (int i = 0; i < paneles.size(); i++) {
+                    TokenPanel panel = paneles.get(i);
+
+                    if (panel.isPanelVacio()) {
+                        Token token = tokensSimples.get(indiceToken);
+                        panel.asignarToken(token);
+                        panel.setPanelVacio(false);  // Marcamos el panel como ocupado
+                        indiceToken++;
+                        tokenAsignado = true;
+                        break;
+                    }
+                }
+
+                if (!tokenAsignado) {
+                    System.out.println("Advertencia: No hay paneles vacíos disponibles para asignar más tokens.");
+                    break;  // Salimos del bucle si no hay más paneles disponibles
+                }
+            }
+}
+
+    /*
+      public void mostrarPanelesToken(List<Token> tokens){
+        
+        List<Token> tokensEspeciales = new ArrayList<>();
+        
+        for (int i = 0; i < tokens.size() && i < paneles.size(); i++) {
+            Token token = tokens.get(i);
+            if (token instanceof TokenEspecial) {
+                
+            }else {
             TokenPanel panel = paneles.get(i);
             panel.asignarToken(token);
+            }
         }
-        this.pack();
-            
+        this.pack();           
     }
-    
+    */
     
     private void configuracionFrame(){
         

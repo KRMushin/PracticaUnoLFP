@@ -19,7 +19,8 @@ public class TokenPanel extends JPanel{
     private int posicionY;
     private Token token;
     private String color;
-
+    private boolean panelVacio;
+    
     public int getPosicionX() {
         return posicionX;
     }
@@ -31,6 +32,15 @@ public class TokenPanel extends JPanel{
     public Token getToken() {
         return token;
     }
+
+    public boolean isPanelVacio() {
+        return panelVacio;
+    }
+
+    public void setPanelVacio(boolean panelVacio) {
+        this.panelVacio = panelVacio;
+    }
+    
     
     
 
@@ -38,6 +48,7 @@ public class TokenPanel extends JPanel{
         this.posicionX = posicionX;
         this.posicionY = posicionY;
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        this.panelVacio = true;
         
     }
     public void asignarToken(Token token){

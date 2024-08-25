@@ -85,9 +85,11 @@ public enum TipoOperador {
     IDENTIFICADOR{
         @Override
         public String obtenerColor(String lexema) {
+            if (lexema.equalsIgnoreCase("elseif")) {
+                return "#60A917";
+            }
             return "#FFD300";
         }
-    
     },
     PALABRA_RESERVADA{
         @Override
