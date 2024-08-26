@@ -13,6 +13,7 @@ public class Token {
     private String lexema;
     private String color;
     private String tipoToken;
+    private String trazaProduccion;
 
     public String getLexema() {
         return lexema;
@@ -21,11 +22,22 @@ public class Token {
     public String getColor() {
         return color;
     }
+
+    public String getTipoToken() {
+        return tipoToken;
+    }
+
+    public String getTrazaProduccion() {
+        return trazaProduccion;
+    }
+
     
-    public Token(String lexema, String color, String tipoToken) {
+    
+    public Token(String lexema, String color, String tipoToken, String trazaProduccion) {
         this.lexema = lexema;
         this.color = color;
         this.tipoToken = tipoToken;
+        this.trazaProduccion = trazaProduccion;
     }
     
     

@@ -23,13 +23,21 @@ public class Identificador {
     
     }
     private Produccion estadoActual;
+    private StringBuilder guardarPaso;
+    private String trazaProduccion;
+    /* area setter y getter*/
 
+    public String getTrazaProduccion() {
+        return trazaProduccion;
+    }    
     public Identificador() {
         // estado inicial s0
         this.estadoActual = Produccion.S0;
+        this.guardarPaso = new StringBuilder();
     }
     public void reiniciar() {
         this.estadoActual = Produccion.S0;
+        this.guardarPaso.setLength(0);
     }
     
     public boolean esIdentificador(String lexema){
@@ -42,7 +50,9 @@ public class Identificador {
             if (estadoActual == Produccion.S0) {
                 // Estado S0: Solo aceptamos letras al inicio
                 if (Character.isLetter(caracter)) {
+                    //s0 ---->  [ A -Z , a- z] S1
                     estadoActual = Produccion.S1;
+                    guardarPaso.append("S0 -> S1 [label=\"" + caracter + "\"];\n");             
                 } else {
                     estadoActual = Produccion.ERROR;
                     break;
@@ -52,12 +62,20 @@ public class Identificador {
                 if (Character.isLetterOrDigit(caracter) || caracter == '_') {
                     // Permanece en S1 si es válido
                     estadoActual = Produccion.S1;
+                    guardarPaso.append("S1 -> S1 [label=\"" + caracter + "\"];\n");
                 } else {
                     estadoActual = Produccion.ERROR;
                     break;
                 }
             }
+            if (estadoActual == Produccion.S1) {
+                
+            }
         }
+        if (estadoActual == Produccion.S1) {
+            this.trazaProduccion = guardarPaso.toString();
+        }
+        
 
         // El lexema es un identificador válido si terminó en S1
         return estadoActual == Produccion.S1 && lexema.length() > 0;

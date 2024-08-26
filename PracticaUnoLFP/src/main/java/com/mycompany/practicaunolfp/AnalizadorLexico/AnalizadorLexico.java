@@ -89,64 +89,65 @@ public class AnalizadorLexico {
             String lexema = lexemas.get(i);
            if (esOperadorLogico(lexema)) {
               String color = TipoOperador.OPERADOR_LOGICO.obtenerColor(lexema);
-                tokens.add(new Token(lexema,color,"Operador Logico"));
+                tokens.add(new Token(lexema,color,"Operador Logico", ""));
                 
            } else if (esDatoBooleano(lexema)) {
               String color = TipoOperador.DATO_BOOLEANO.obtenerColor(lexema);
-              tokens.add(new Token(lexema,color,"Dato Booleano"));
+              tokens.add(new Token(lexema,color,"Dato Booleano" ,""));
               
            }else if (esSquareSimple(lexema)) {
               String color = squareSimple.getColor();
-              tokens.add(new Token(lexema,color," Square Simple"));
+              tokens.add(new Token(lexema,color," Square Simple", " "));
           } else if (esSquareEspecial(lexema)) {
                 String color = squareEspecial.getColor();
                 String numeroFilas = squareEspecial.getNumeroFilas();
                 String numeroColumnas = squareEspecial.getNumeroColumnas();
-                tokens.add(new TokenEspecial(lexema,color, "square Especial",numeroFilas,numeroColumnas));
+                tokens.add(new TokenEspecial(lexema,color, "square Especial",numeroFilas,numeroColumnas, " "));
           }
            else if (esPalabraReservada(lexema)) {
                 
                 String color = TipoOperador.PALABRA_RESERVADA.obtenerColor(lexema);
-                tokens.add(new Token(lexema,color,"PalabraReservada"));
+                tokens.add(new Token(lexema,color,"PalabraReservada", " "));
                 
             }
            else if (esOperadorAritmetico(lexema)) {
 
                 String color = TipoOperador.OPERADOR_ARITMETICO.obtenerColor(lexema);
-                tokens.add(new Token(lexema,color,"Operador Aritmetico"));
+                tokens.add(new Token(lexema,color,"Operador Aritmetico", " "));
               
           } 
            else if (esIdentificador(lexema)) {
+               
                 String color = TipoOperador.IDENTIFICADOR.obtenerColor(lexema);
-                 tokens.add(new Token(lexema,color,"Identificador"));
+                 tokens.add(new Token(lexema,color,"Identificador" ,identificador.getTrazaProduccion()));
                  
             } else if (esSignoSimbolo(lexema)) {
               String color = TipoOperador.SIGNO_SIMBOLO.obtenerColor(lexema);
-                 tokens.add(new Token(lexema,color," Signo Simbolo"));
+                 tokens.add(new Token(lexema,color," Signo Simbolo", " "));
            }else if (esOperadorAsignacion(lexema)) {
               
               String color = TipoOperador.OPERADOR_ASIGNACION.obtenerColor(lexema);
-                tokens.add(new Token(lexema,color,"Operador Asignacion"));
+                tokens.add(new Token(lexema,color,"Operador Asignacion", " "));
               
           }else if (esOperadorRelacionComparacion(lexema)) {
               
               String color = TipoOperador.OPERADOR_RELACIONAL_COMPARACION.obtenerColor(lexema);
-                tokens.add(new Token(lexema,color,"Operados relacion comparacion"));
+                tokens.add(new Token(lexema,color,"Operados relacion comparacion" , " "));
                 
           }else if (esDatoCadena(lexema)) {
               String color = TipoOperador.DATO_CADENA.obtenerColor(lexema);
-              tokens.add(new Token(lexema,color," Dato Cadena"));
+              tokens.add(new Token(lexema,color," Dato Cadena",  " "));
           }else if (esDatoDecimal(lexema)) {
               String color = TipoOperador.DATO_DECIMAL.obtenerColor(lexema);
-              tokens.add(new Token(lexema,color," Token Decimal "));
+              tokens.add(new Token(lexema,color," Token Decimal ", " "));
               
           }else if (esDatoEntero(lexema)) {
               String color = TipoOperador.DATO_ENTERO.obtenerColor(lexema);
-              tokens.add(new Token(lexema,color," Token Entero"));
+              tokens.add(new Token(lexema,color," Token Entero", " "));
           }  
           else if (esDatoCaracter(lexema)) {
               String color = TipoOperador.DATO_CARACTER.obtenerColor(lexema);
-              tokens.add(new Token(lexema,color," Dato Caracter"));
+              tokens.add(new Token(lexema,color," Dato Caracter",  " "));
           }
       }
       
