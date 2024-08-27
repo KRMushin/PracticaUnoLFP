@@ -10,12 +10,12 @@ package com.mycompany.practicaunolfp.AnalizadorLexico;
  */
 public class Token {
     
-    private String lexema;
+    private Lexema lexema;
     private String color;
     private String tipoToken;
     private String trazaProduccion;
 
-    public String getLexema() {
+    public Lexema getLexema() {
         return lexema;
     }
 
@@ -33,7 +33,7 @@ public class Token {
 
     
     
-    public Token(String lexema, String color, String tipoToken, String trazaProduccion) {
+    public Token(Lexema lexema, String color, String tipoToken, String trazaProduccion) {
         this.lexema = lexema;
         this.color = color;
         this.tipoToken = tipoToken;

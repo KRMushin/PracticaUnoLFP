@@ -19,8 +19,14 @@ public class GenerarImagenAutomata {
         this.token = token;
         this.panelToken = panelToken;
     }
-    private void generarImagen(){}
-    private void mostrarImagen(){}
+    private void generarImagen(){
+    
+    
+    }
+    private void mostrarImagen(){
+    
+    
+    }
     
     
 }

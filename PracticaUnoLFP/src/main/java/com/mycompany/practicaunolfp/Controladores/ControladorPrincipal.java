@@ -5,7 +5,9 @@
 package com.mycompany.practicaunolfp.Controladores;
 
 import com.mycompany.practicaunolfp.AnalizadorLexico.AnalizadorLexico;
+import com.mycompany.practicaunolfp.AnalizadorLexico.Lexema;
 import com.mycompany.practicaunolfp.AnalizadorLexico.Token;
+import com.mycompany.practicaunolfp.AnalizadorLexico.Tokenizador;
 import com.mycompany.practicaunolfp.Vista.VistaPrincipal;
 import com.mycompany.practicaunolfp.utileria.TokenPanel;
 import java.util.ArrayList;
@@ -37,11 +39,12 @@ public class ControladorPrincipal {
         List<Token> tokens = analizadorLexico.obtenerLexemas(entradaAnalisis);
         
         if ((numeroFilas * numeroColumnas) < tokens.size() ) {
-            mostrarMensaje("El numero de filas y columnas ingresador no puede soportar la cantidad de tokens encontrados \n Numero Tokens: " + tokens.size());
+           mostrarMensaje("El numero de filas y columnas ingresador no puede soportar la cantidad de tokens encontrados \n Numero Tokens: " + tokens.size());
             return;
         }
         mostrarLexemas(tokens);
         vistaPrincipal.mostrarPanelesToken(tokens);
+
     }
    
     private boolean datosValidos(int numeroFilas, int numeroColumnas){
@@ -58,7 +61,7 @@ public class ControladorPrincipal {
         System.out.println(tokens.size());
         for (int i = 0; i < tokens.size(); i++) {
               Token token = tokens.get(i);
-              System.out.println(" LEXEMA " + token.getLexema() + " color " + token.getColor());
+              System.out.println(" LEXEMA " + token.getLexema().getValor() + " color " + token.getColor() + " Fila" + token.getLexema().getFila() + " columna" + token.getLexema().getColumna());
         }
     
     
@@ -67,6 +70,18 @@ public class ControladorPrincipal {
                     JOptionPane.showMessageDialog(null, mensaje);
 
         
+    }
+    private void mostLexemas(List<Lexema> lexemas){
+        
+        for (int i = 0; i < lexemas.size(); i++) {
+              Lexema lexema = lexemas.get(i);
+              
+              if (lexema != null) {
+                  System.out.println(lexema.getValor() + " FIl " + lexema.getFila() + " col " + lexema.getColumna());
+            }
+            
+        }
+    
     }
     
 } // cerrar clase

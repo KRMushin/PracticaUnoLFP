@@ -21,7 +21,7 @@ public class TokenEspecial extends Token{
         return numeroColumna;
     }
     
-    public TokenEspecial(String lexema, String color, String tipoToken,  String numeroFila, String numeroColumna, String trazaProduccion) {
+    public TokenEspecial(Lexema lexema, String color, String tipoToken,  String numeroFila, String numeroColumna, String trazaProduccion) {
         super(lexema, color, tipoToken, trazaProduccion);
         establecerNumeros(numeroFila,numeroColumna);
     }
