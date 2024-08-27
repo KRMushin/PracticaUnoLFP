@@ -334,7 +334,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 mostrarMensaje(" Existen paneles sin valores para la generacion de reporte :) ");
                 return;
             }
-            vistaReporte.mostrarReporte(paneles);
+            List<TokenPanel> copiaPaneles = paneles;
+            vistaReporte.mostrarReporte(copiaPaneles);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

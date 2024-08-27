@@ -7,10 +7,8 @@ package com.mycompany.practicaunolfp.Vista;
 import com.mycompany.practicaunolfp.AnalizadorLexico.Token;
 import com.mycompany.practicaunolfp.utileria.TokenPanel;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.List;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -40,12 +38,11 @@ public class VistaReporte extends javax.swing.JFrame {
                  if (panelToken.getToken() != null) {
                      mostrarReportePanel(panelToken);         
                      number++;
-                     colores.add(panelToken);
+                     colores.add(obtenerPanelColor(panelToken.getToken().getColor()));
                      colores.add(new JLabel(panelToken.getToken().getColor()));
                  }
             }
         }
-        System.out.println("        NUMBER DEP" + number);
     }
     private void mostrarReportePanel(TokenPanel panelToken){
         String tipoToken;
@@ -79,6 +76,14 @@ public class VistaReporte extends javax.swing.JFrame {
            columnaCuadro,
            color
         });
+    }
+    
+    private JPanel obtenerPanelColor(String col){
+        JPanel jpanel = new JPanel();
+        Color color = Color.decode(col);
+        jpanel.setBackground(color);
+    return jpanel; 
+    
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
