@@ -24,7 +24,9 @@ public class TokenPanel extends JPanel{
     
     private String trazasProduccion;
 
-    
+    public String getColor() {
+        return color;
+    }
     public int getPosicionX() {
         return posicionX;
     }

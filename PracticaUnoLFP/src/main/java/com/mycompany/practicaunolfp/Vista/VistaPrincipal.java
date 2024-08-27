@@ -12,6 +12,7 @@ import com.mycompany.practicaunolfp.utileria.TokenPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.HeadlessException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ import javax.swing.JTextField;
  */
 public class VistaPrincipal extends javax.swing.JFrame {
     
-
+    private VistaReporte vistaReporte = new VistaReporte();
     LectorArchivo lectorArchivo = new LectorArchivo();
     private int numeroFil = 0;
     private int numeroCol = 0;
@@ -97,7 +98,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         }
     }
 }
-
     private void mostrarTokensSimples(List<Token> tokensSimples) {
             int indiceToken = 0;
 
@@ -122,26 +122,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
                     break;  // Salimos del bucle si no hay más paneles disponibles
                 }
             }
-}
-
-    /*
-      public void mostrarPanelesToken(List<Token> tokens){
-        
-        List<Token> tokensEspeciales = new ArrayList<>();
-        
-        for (int i = 0; i < tokens.size() && i < paneles.size(); i++) {
-            Token token = tokens.get(i);
-            if (token instanceof TokenEspecial) {
-                
-            }else {
-            TokenPanel panel = paneles.get(i);
-            panel.asignarToken(token);
-            }
-        }
-        this.pack();           
-    }
-    */
-    
+}    
     private void configuracionFrame(){
         
            this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -181,7 +162,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Reportes");
+        jButton2.setText("Reporte Analisis");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Numero Filas");
@@ -339,6 +325,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
             this.pack();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+            if (paneles.isEmpty()) {
+                mostrarMensaje(" Aun no existen paneles de tokes");
+                return;
+             }
+            if (paneles.get(0).isPanelVacio()) {
+                mostrarMensaje(" Existen paneles sin valores para la generacion de reporte :) ");
+                return;
+            }
+            vistaReporte.mostrarReporte(paneles);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton analizar;
     private javax.swing.JTextArea areaTexto;
@@ -354,4 +352,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel panelContenedor;
     private javax.swing.JPanel panelGrafico;
     // End of variables declaration//GEN-END:variables
+
+    private void mostrarMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje);
+    }
 }

@@ -7,10 +7,7 @@ package com.mycompany.practicaunolfp.Controladores;
 import com.mycompany.practicaunolfp.AnalizadorLexico.AnalizadorLexico;
 import com.mycompany.practicaunolfp.AnalizadorLexico.Lexema;
 import com.mycompany.practicaunolfp.AnalizadorLexico.Token;
-import com.mycompany.practicaunolfp.AnalizadorLexico.Tokenizador;
 import com.mycompany.practicaunolfp.Vista.VistaPrincipal;
-import com.mycompany.practicaunolfp.utileria.TokenPanel;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -22,6 +19,7 @@ public class ControladorPrincipal {
     
     private final VistaPrincipal vistaPrincipal;
     private AnalizadorLexico analizadorLexico;
+    private List<Token> tokens;
     
     public ControladorPrincipal(VistaPrincipal vistaPrincipal) {
         this.vistaPrincipal = vistaPrincipal;
@@ -36,7 +34,7 @@ public class ControladorPrincipal {
         }
      
         this.analizadorLexico = new AnalizadorLexico(entradaAnalisis);
-        List<Token> tokens = analizadorLexico.obtenerLexemas(entradaAnalisis);
+        tokens = analizadorLexico.obtenerLexemas(entradaAnalisis);
         
         if ((numeroFilas * numeroColumnas) < tokens.size() ) {
            mostrarMensaje("El numero de filas y columnas ingresador no puede soportar la cantidad de tokens encontrados \n Numero Tokens: " + tokens.size());
