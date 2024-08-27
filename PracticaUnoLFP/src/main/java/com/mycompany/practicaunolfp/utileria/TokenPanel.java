@@ -7,6 +7,7 @@ package com.mycompany.practicaunolfp.utileria;
 import com.mycompany.practicaunolfp.AnalizadorLexico.Token;
 import java.awt.Color;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -70,7 +71,12 @@ public class TokenPanel extends JPanel{
             
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                GenerarImagenAutomata generar = new GenerarImagenAutomata(token, TokenPanel.this);
+                
+                if (token != null) {
+                    GenerarImagenAutomata generar = new GenerarImagenAutomata(token, TokenPanel.this);
+                }else{
+                    JOptionPane.showMessageDialog(null, "TOKEN VACIO :)");
+                }
             }         
         });
         

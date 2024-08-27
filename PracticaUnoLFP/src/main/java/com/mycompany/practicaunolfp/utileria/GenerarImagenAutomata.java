@@ -5,6 +5,16 @@
 package com.mycompany.practicaunolfp.utileria;
 
 import com.mycompany.practicaunolfp.AnalizadorLexico.Token;
+import com.mycompany.practicaunolfp.Vista.VistaAutomata;
+import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -14,150 +24,93 @@ public class GenerarImagenAutomata {
     
     private Token token;
     private TokenPanel panelToken;
+    private VistaAutomata frameAutomata;
+    private BufferedImage imagenAutomata;
 
-    public GenerarImagenAutomata(Token token, TokenPanel panelToken) {
-        this.token = token;
-        this.panelToken = panelToken;
-    }
-    private void generarImagen(){
-    
-    
-    }
-    private void mostrarImagen(){
-    
-    
-    }
-    
-    
-}
-/*
-                import javax.swing.*;
-import java.awt.image.BufferedImage;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.InputStream;
-import javax.imageio.ImageIO;
-
-public class TokenPanel extends JPanel {
-
-    private int posicionX;
-    private int posicionY;
-    private Token token;
-    private String color;
-    private boolean panelVacio;
-    private String trazasProduccion;
-
-    public int getPosicionX() {
-        return posicionX;
-    }
-
-    public int getPosicionY() {
-        return posicionY;
+    public BufferedImage getImagenAutomata() {
+        return imagenAutomata;
     }
 
     public Token getToken() {
         return token;
     }
 
-    public boolean isPanelVacio() {
-        return panelVacio;
-    }
-
-    public void setPanelVacio(boolean panelVacio) {
-        this.panelVacio = panelVacio;
-    }
-
-    public TokenPanel(int posicionX, int posicionY) {
-        this.posicionX = posicionX;
-        this.posicionY = posicionY;
-        this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        this.panelVacio = true;
-        inicializarEvento();
-    }
-
-    public void asignarToken(Token token) {
+    public GenerarImagenAutomata(Token token, TokenPanel panelToken) {
         this.token = token;
-        cambiarColor(token.getColor());
+        this.panelToken = panelToken;
+        this.frameAutomata = new VistaAutomata(this);
+        generarImagen(token.getLexema().getValor());
+        mostrarCaracteristicas(frameAutomata,token,panelToken);
     }
 
-    private void cambiarColor(String color) {
+    private void generarImagen(String lexema){
+        StringBuilder graphConstructor = new StringBuilder();
+        graphConstructor.append("digraph G {\n");
+        graphConstructor.append("rankdir=LR;\n");
+        graphConstructor.append("node [shape = circle];\n");
+        
+          for (int i = 0; i < lexema.length(); i++) {
+               char caracter = lexema.charAt(i);
+               String nodo = "node" + i;
+
+                    if (i == lexema.length() - 1) {
+                        graphConstructor.append(nodo + " [label=\"" + caracter + "\", shape=doublecircle];\n");
+                    } else {
+                        graphConstructor.append(nodo + " [label=\"" + caracter + "\"];\n");
+                    }
+
+                    if (i > 0) {
+                        String nodoPrevio = "node" + (i - 1);
+                        graphConstructor.append(nodoPrevio + " -> " + nodo + ";\n");
+                    }
+          }
+        graphConstructor.append("}");
+        
+        crearConexionGraphViz(graphConstructor.toString());
+    }
+    private void crearConexionGraphViz(String graphConstructor){
+    
         try {
-            Color nuevoColor = Color.decode(color);
-            this.setBackground(nuevoColor);
-        } catch (NumberFormatException e) {
-            System.out.println("COLOR INVALIDO " + color);
-        }
-    }
-
-    private void inicializarEvento() {
-        this.addMouseListener(new java.awt.event.MouseAdapter() {
-
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-                System.out.println("Panel clickeado en la posición: (" + (posicionX + 1) + ", " + (posicionY + 1) + ")");
-                System.out.print(token.getTrazaProduccion());
-                mostrarGraficoEnMemoria(token);
-            }
-        });
-    }
-
-    public void mostrarGraficoEnMemoria(Token token) {
-        String lexema = token.getLexema();
-        StringBuilder dotFileContent = new StringBuilder();
-        dotFileContent.append("digraph G {\n");
-        dotFileContent.append("rankdir=LR;\n");
-        dotFileContent.append("node [shape = circle];\n");
-
-        // Generar nodos y conexiones
-        for (int i = 0; i < lexema.length(); i++) {
-            char caracter = lexema.charAt(i);
-            String nodeName = "node" + i;
-
-            if (i == lexema.length() - 1) {
-                dotFileContent.append(nodeName + " [label=\"" + caracter + "\", shape=doublecircle];\n");
-            } else {
-                dotFileContent.append(nodeName + " [label=\"" + caracter + "\"];\n");
-            }
-
-            if (i > 0) {
-                String prevNodeName = "node" + (i - 1);
-                dotFileContent.append(prevNodeName + " -> " + nodeName + ";\n");
-            }
-        }
-
-        dotFileContent.append("}");
-
-        try {
-            // Crear el proceso para Graphviz
+            // proceso de graph viz
             ProcessBuilder pb = new ProcessBuilder("dot", "-Tpng");
             Process process = pb.start();
 
-            // Escribir el contenido del dotFileContent directamente en la entrada del proceso
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
-            writer.write(dotFileContent.toString());
+            writer.write(graphConstructor);
             writer.flush();
             writer.close();
 
             // Leer la salida del proceso y convertirla en una imagen
             InputStream inputStream = process.getInputStream();
-            BufferedImage image = ImageIO.read(inputStream);
-
-            // Mostrar la imagen en un JFrame
-            JFrame frame = new JFrame("Autómata para token: " + token.getTipoToken());
-            frame.setSize(700, 400);
-
-            JLabel label = new JLabel(new ImageIcon(image));
-            frame.add(label);
-
-            frame.setVisible(true);
-
+           imagenAutomata = ImageIO.read(inputStream);
+            
+            
+            frameAutomata.getAutomata().setIcon(new ImageIcon(imagenAutomata));
+            frameAutomata.setVisible(true);
             process.waitFor();
+            
         } catch (IOException | InterruptedException e) {
-            System.out.println("Error al generar la imagen del autómata en memoria: " + e.getMessage());
         }
     }
+
+    private void mostrarCaracteristicas(VistaAutomata frameAutomata, Token token , TokenPanel tokenPanel) {
+        try {
+            String filaTexto = Integer.toString(token.getLexema().getFila());
+            String ColTexto = Integer.toString(token.getLexema().getColumna());
+            String filaCuadro = Integer.toString(tokenPanel.getPosicionX() + 1);
+            String colCuadro = Integer.toString(tokenPanel.getPosicionY() + 1);
+            
+            frameAutomata.getTipoToken().setText(token.getTipoToken());
+            
+            frameAutomata.getFilaTexto().setText(filaTexto);
+            frameAutomata.getColumnaTexto().setText(ColTexto);
+            
+            frameAutomata.getFilaCuadro().setText(filaCuadro);
+            frameAutomata.getColumnaCuadro().setText(colCuadro);
+            
+        } catch (Exception e) {
+            System.out.println("    UPS");
+        }  
+    }
+    
 }
-
-
-*/
