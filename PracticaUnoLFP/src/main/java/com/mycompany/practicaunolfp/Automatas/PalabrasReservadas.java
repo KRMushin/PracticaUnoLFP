@@ -14,6 +14,12 @@ public class PalabrasReservadas {
     T = { A-Z, a-z , .}
     P = {
         
+        S0 ---> [A -Z]S1
+        S1 ---->[a -z]S2
+        S2 ----> [ . ]S3
+        S2 ----> [ A -Z ]S3
+        S3 ----> [ a - z ]
+        
         S0 ---> [A-Z]S1
         s1 ----> [ a- z]s1
         s1 --->  lambda
@@ -37,6 +43,9 @@ public class PalabrasReservadas {
     public void reiniciar() {
         this.estadoActual = Produccion.S0;
     }
+    /*
+        ELSE IF
+    */
 
    public boolean esPalabraReservada(String lexema) {
         reiniciar();
@@ -58,7 +67,11 @@ public class PalabrasReservadas {
                             }
                             else if (caracter == '.') {
                                 estadoActual = Produccion.S2;
-                            }else {
+                                
+                            }else if (caracter == 'I') {
+                                estadoActual = Produccion.S1;
+                             }
+                            else {
                                 estadoActual = Produccion.ERROR;
                             }
                     break;
