@@ -23,6 +23,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
+import javax.swing.text.BadLocationException;
 
 /**
  *
@@ -32,8 +35,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
     
     private VistaReporte vistaReporte = new VistaReporte();
     LectorArchivo lectorArchivo = new LectorArchivo();
+    
     private int numeroFil = 0;
     private int numeroCol = 0;
+    
     List<TokenPanel> paneles = new ArrayList<>();
 
     public JButton getAnalizar() {
@@ -51,6 +56,17 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public VistaPrincipal() {
         initComponents();
         configuracionFrame();
+        detectorDeCursor();
+    }
+    private void configuracionFrame(){
+        
+           this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+           this.panelContenedor.setLayout(new BorderLayout());
+           jScrollPane1.setPreferredSize(new Dimension(550, 0)); // Ajusta solo el ancho, 0 permite que el alto se ajuste automáticamente
+           this.panelContenedor.add(barraBotones, BorderLayout.NORTH);
+           this.panelContenedor.add(jScrollPane1, BorderLayout.WEST);
+           this.panelContenedor.add(panelGrafico, BorderLayout.CENTER);
+        
     }
     public void mostrarPanelesToken(List<Token> tokens){
         
@@ -123,16 +139,27 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 }
             }
 }    
-    private void configuracionFrame(){
-        
-           this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-           this.panelContenedor.setLayout(new BorderLayout());
-           jScrollPane1.setPreferredSize(new Dimension(550, 0)); // Ajusta solo el ancho, 0 permite que el alto se ajuste automáticamente
-           this.panelContenedor.add(barraBotones, BorderLayout.NORTH);
-           this.panelContenedor.add(jScrollPane1, BorderLayout.WEST);
-           this.panelContenedor.add(panelGrafico, BorderLayout.CENTER);
+    
+    private void detectorDeCursor(){
+        this.areaTexto.addCaretListener(new CaretListener(){
+            @Override
+            public void caretUpdate(CaretEvent e) {
+                    actualizarPosicionCursor(e);
+            }  
+        });
         
     }
+    private void actualizarPosicionCursor(CaretEvent e){
+        int posicion = e.getDot();
+        try {
+            int linea = areaTexto.getLineOfOffset(posicion) + 1;
+            int columna = posicion  - areaTexto.getLineStartOffset(linea - 1) +1;
+            cursorPos.setText(" Linea: " + linea + " Columna " + columna);
+        } catch (BadLocationException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -147,6 +174,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         numeroColumnas = new javax.swing.JTextField();
         analizar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        cursorPos = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         areaTexto = new javax.swing.JTextArea();
         panelGrafico = new javax.swing.JPanel();
@@ -189,6 +217,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        cursorPos.setForeground(new java.awt.Color(0, 0, 0));
+        cursorPos.setText("Vacio");
+
         javax.swing.GroupLayout barraBotonesLayout = new javax.swing.GroupLayout(barraBotones);
         barraBotones.setLayout(barraBotonesLayout);
         barraBotonesLayout.setHorizontalGroup(
@@ -204,7 +235,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addComponent(numeroColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(cursorPos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(analizar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,7 +257,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
                     .addComponent(numeroFilas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(numeroColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(analizar)
-                    .addComponent(jButton3))
+                    .addComponent(jButton3)
+                    .addComponent(cursorPos))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -342,6 +376,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton analizar;
     private javax.swing.JTextArea areaTexto;
     private javax.swing.JPanel barraBotones;
+    private javax.swing.JLabel cursorPos;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
