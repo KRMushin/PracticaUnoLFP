@@ -7,6 +7,7 @@ package com.mycompany.practicaunolfp.Vista;
 import com.mycompany.practicaunolfp.AnalizadorLexico.Token;
 import com.mycompany.practicaunolfp.AnalizadorLexico.TokenEspecial;
 import com.mycompany.practicaunolfp.Controladores.ControladorPrincipal;
+import com.mycompany.practicaunolfp.utileria.GenerarImagenLienzo;
 import com.mycompany.practicaunolfp.utileria.LectorArchivo;
 import com.mycompany.practicaunolfp.utileria.TokenPanel;
 import java.awt.BorderLayout;
@@ -34,6 +35,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     
     private VistaReporte vistaReporte = new VistaReporte();
     LectorArchivo lectorArchivo = new LectorArchivo();
+    private GenerarImagenLienzo generador = new GenerarImagenLienzo();
     
     private int numeroFil = 0;
     private int numeroCol = 0;
@@ -159,6 +161,31 @@ public class VistaPrincipal extends javax.swing.JFrame {
         }
     }
     
+    private void establecerTamaño(){
+            try {
+            this.numeroFil = Integer.parseInt(numeroFilas.getText());
+            this.numeroCol = Integer.parseInt(numeroColumnas.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, " ingrese datos validos para filas y columnas");
+        }
+         paneles.clear();
+         panelGrafico.removeAll();
+         panelGrafico.setLayout(new BoxLayout(panelGrafico, BoxLayout.Y_AXIS));
+
+            JPanel gridPanel = new JPanel();
+            gridPanel.setLayout(new GridLayout(numeroFil, numeroCol));
+            
+            for (int i = 0; i < numeroFil; i++) {
+                   for (int j = 0; j < numeroCol; j++) {
+                        TokenPanel panel = new TokenPanel(i,j);
+                         paneles.add(panel);
+                         gridPanel.add(panel);
+                }
+            }
+            panelGrafico.add(gridPanel);
+            this.pack();      
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -174,6 +201,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
         analizar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         cursorPos = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         areaTexto = new javax.swing.JTextArea();
         panelGrafico = new javax.swing.JPanel();
@@ -209,7 +238,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Establecer Tamaño o Nuevo analisis");
+        jButton3.setText("Establecer Tamaño");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -219,46 +248,71 @@ public class VistaPrincipal extends javax.swing.JFrame {
         cursorPos.setForeground(new java.awt.Color(0, 0, 0));
         cursorPos.setText("Vacio");
 
+        jButton4.setText("Limpiar Lienzo");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("Guardar Lienzo");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout barraBotonesLayout = new javax.swing.GroupLayout(barraBotones);
         barraBotones.setLayout(barraBotonesLayout);
         barraBotonesLayout.setHorizontalGroup(
             barraBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(barraBotonesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(numeroFilas, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(numeroColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
-                .addGap(18, 18, 18)
-                .addComponent(cursorPos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(analizar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addContainerGap())
+                .addGroup(barraBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(barraBotonesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(numeroFilas, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(numeroColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton4)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton5))
+                    .addGroup(barraBotonesLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(cursorPos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(analizar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         barraBotonesLayout.setVerticalGroup(
             barraBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(barraBotonesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(barraBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(numeroFilas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(numeroColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(analizar)
                     .addComponent(jButton3)
-                    .addComponent(cursorPos))
-                .addContainerGap(12, Short.MAX_VALUE))
+                    .addComponent(jButton4)
+                    .addComponent(jButton1)
+                    .addComponent(jButton5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(barraBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cursorPos)
+                    .addComponent(analizar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         areaTexto.setColumns(20);
@@ -296,9 +350,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addComponent(barraBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
                     .addComponent(panelGrafico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -334,28 +388,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_analizarActionPerformed
 /*  creacion y asignacion de paneles en grafico*/
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        try {
-            this.numeroFil = Integer.parseInt(numeroFilas.getText());
-            this.numeroCol = Integer.parseInt(numeroColumnas.getText());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, " ingrese datos validos para filas y columnas");
-        }
-        paneles.clear();
-         panelGrafico.removeAll();
-         panelGrafico.setLayout(new BoxLayout(panelGrafico, BoxLayout.Y_AXIS));
-
-            JPanel gridPanel = new JPanel();
-            gridPanel.setLayout(new GridLayout(numeroFil, numeroCol));
-            
-            for (int i = 0; i < numeroFil; i++) {
-                   for (int j = 0; j < numeroCol; j++) {
-                        TokenPanel panel = new TokenPanel(i,j);
-                         paneles.add(panel);
-                         gridPanel.add(panel);
-                }
-            }
-            panelGrafico.add(gridPanel);
-            this.pack();
+                             establecerTamaño();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -371,6 +404,15 @@ public class VistaPrincipal extends javax.swing.JFrame {
             vistaReporte.mostrarReporte(copiaPaneles);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+                establecerTamaño();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+            VistaGuardarLienzo vista = new VistaGuardarLienzo(panelGrafico);
+            vista.setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton analizar;
     private javax.swing.JTextArea areaTexto;
@@ -379,6 +421,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

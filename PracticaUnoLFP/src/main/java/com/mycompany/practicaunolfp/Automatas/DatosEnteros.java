@@ -10,14 +10,18 @@ package com.mycompany.practicaunolfp.Automatas;
  */
 public class DatosEnteros {
     /*
-    N = { S0 , S1}
-    T = { 0 - 9 }
+    /*
+    N = { S0, S1, S2 }
+    T = { 0 - 9, - }
     P = {
-        S0 --> S1
+        S0 --> S1 (si es dígito)
+        S0 --> S2 (si es '-')
+        S2 --> S1 (si es dígito)
         S1 --> 0 - 9 S1
-        S1 --- LAMBDA
+        S1 --> LAMBDA
     }
     S = S0
+   
     
     */
     public enum Produccion {
@@ -33,35 +37,48 @@ public class DatosEnteros {
         this.estadoActual = Produccion.S0;
     }
     
-    public boolean esEntero(String lexema){
+   public boolean esEntero(String lexema) {
         reiniciar();
         for (int i = 0; i < lexema.length(); i++) {
-              char caracter = lexema.charAt(i);
-              
-              switch (estadoActual) {
+            char caracter = lexema.charAt(i);
+
+            switch (estadoActual) {
                 case S0:
-                            if (caracter == '0' || caracter == '1' || caracter == '2' || caracter == '3' || caracter == '4' || caracter == '5' || caracter == '6' || caracter == '7' || caracter == '8' || caracter == '9') {
-                                estadoActual = Produccion.S1;
-                               }else{
-                                estadoActual = Produccion.ERROR;
-                               }
+                    if (caracter == '-') {
+                        estadoActual = Produccion.S2; // Va al estado S2 si es un signo negativo
+                    } else if (Character.isDigit(caracter)) {
+                        estadoActual = Produccion.S1; // Va al estado S1 si es un dígito
+                    } else {
+                        estadoActual = Produccion.ERROR;
+                    }
                     break;
+
+                case S2:
+                    if (Character.isDigit(caracter)) {
+                        estadoActual = Produccion.S1; // Después de un '-', debe venir un dígito
+                    } else {
+                        estadoActual = Produccion.ERROR;
+                    }
+                    break;
+
                 case S1:
-                                if (!Character.isDigit(caracter)) {
-                                    estadoActual = Produccion.ERROR;
-                                   }
-                                //permanece en estado s1
+                    if (!Character.isDigit(caracter)) {
+                        estadoActual = Produccion.ERROR; // Permanece en S1 mientras haya dígitos
+                    }
                     break;
+
                 default:
                     estadoActual = Produccion.ERROR;
                     break;
             }
-                if (estadoActual == Produccion.ERROR) {
-                break;  // Salida en caso de error
-                }
-                
-        }    
-               return estadoActual == Produccion.S1;  
+
+            if (estadoActual == Produccion.ERROR) {
+                break; // Salida en caso de error
+            }
+        }
+
+        // Acepta solo si termina en S1, lo que significa que todos los caracteres fueron correctos
+        return estadoActual == Produccion.S1;
     }
     
 }

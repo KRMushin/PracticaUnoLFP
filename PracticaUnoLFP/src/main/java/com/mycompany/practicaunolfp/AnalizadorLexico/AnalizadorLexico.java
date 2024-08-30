@@ -111,7 +111,10 @@ public class AnalizadorLexico {
                 String color = TipoOperador.PALABRA_RESERVADA.obtenerColor(lexemaValor);
                 tokens.add(new Token(lexema,color,"PalabraReservada"));
                 
-            }
+            }else if (esDatoEntero(lexemaValor)) {
+              String color = TipoOperador.DATO_ENTERO.obtenerColor(lexemaValor);
+              tokens.add(new Token(lexema,color," Token Entero"));
+          }  
            else if (esOperadorAritmetico(lexemaValor)) {
 
                 String color = TipoOperador.OPERADOR_ARITMETICO.obtenerColor(lexemaValor);
@@ -143,10 +146,7 @@ public class AnalizadorLexico {
               String color = TipoOperador.DATO_DECIMAL.obtenerColor(lexemaValor);
               tokens.add(new Token(lexema,color," Token Decimal "));
               
-          }else if (esDatoEntero(lexemaValor)) {
-              String color = TipoOperador.DATO_ENTERO.obtenerColor(lexemaValor);
-              tokens.add(new Token(lexema,color," Token Entero"));
-          }  
+          }
           else if (esDatoCaracter(lexemaValor)) {
               String color = TipoOperador.DATO_CARACTER.obtenerColor(lexemaValor);
               tokens.add(new Token(lexema,color," Dato Caracter"));

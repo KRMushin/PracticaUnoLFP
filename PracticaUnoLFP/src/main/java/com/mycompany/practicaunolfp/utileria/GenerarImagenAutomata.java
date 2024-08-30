@@ -43,8 +43,11 @@ public class GenerarImagenAutomata {
         mostrarCaracteristicas(frameAutomata,token,panelToken);
     }
 
-    private void generarImagen(String lexema){
+    private void generarImagen(String lex){
+        
         StringBuilder graphConstructor = new StringBuilder();
+        String lexema = lex.replace("\"", "'");
+        System.out.println(lexema);
         graphConstructor.append("digraph G {\n");
         graphConstructor.append("rankdir=LR;\n");
         graphConstructor.append("node [shape = circle];\n");
@@ -52,7 +55,7 @@ public class GenerarImagenAutomata {
           for (int i = 0; i < lexema.length(); i++) {
                char caracter = lexema.charAt(i);
                String nodo = "node" + i;
-
+               
                     if (i == lexema.length() - 1) {
                         graphConstructor.append(nodo + " [label=\"" + caracter + "\", shape=doublecircle];\n");
                     } else {

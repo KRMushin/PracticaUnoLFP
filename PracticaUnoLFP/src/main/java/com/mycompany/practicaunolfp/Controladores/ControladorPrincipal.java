@@ -59,7 +59,7 @@ public class ControladorPrincipal {
         System.out.println(tokens.size());
         for (int i = 0; i < tokens.size(); i++) {
               Token token = tokens.get(i);
-              System.out.println(" LEXEMA " + token.getLexema().getValor() + " color " + token.getColor() + " Fila" + token.getLexema().getFila() + " columna" + token.getLexema().getColumna());
+              System.out.println(" LEXEMA " + token.getLexema().getValor() + " color " + token.getColor() + " Fila" + token.getLexema().getFila() + " columna" + token.getLexema().getColumna() + " l " +token.getTipoToken());
         }
     
     
