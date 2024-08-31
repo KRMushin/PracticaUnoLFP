@@ -11,4 +11,26 @@
         <maven.compiler.target>21</maven.compiler.target>
         <exec.mainClass>com.mycompany.practicaunolfp.PracticaUnoLFP</exec.mainClass>
     </properties>
+     <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <!-- Here come other details
+                ...
+                -->
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>com.mycompany.practicaunolfp.PracticaUnoLFP</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <!-- Here come other details
+                ...
+                -->
+            </plugin>
+        </plugins>
+    </build>
 </project>

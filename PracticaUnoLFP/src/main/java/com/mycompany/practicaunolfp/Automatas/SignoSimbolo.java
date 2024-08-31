@@ -68,6 +68,8 @@ public class SignoSimbolo {
                caracter == '[' || caracter == ']' ||
                caracter == ',' || caracter == '.';
     }
+    private void saludar(){
+    }
 
     
 }

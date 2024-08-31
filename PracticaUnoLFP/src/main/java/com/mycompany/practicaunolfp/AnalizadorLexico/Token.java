@@ -25,7 +25,7 @@ public class Token {
     public String getTipoToken() {
         return tipoToken;
     }
-        
+        // METODO CONSTRUCTOR
     public Token(Lexema lexema, String color, String tipoToken) {
         this.lexema = lexema;
         this.color = color;

@@ -10,17 +10,31 @@ import java.util.List;
 /**
  *
  * @author kevin-mushin
+ P = {
+    S0 → INICIO
+    S0 → ESPACIO_EN_BLANCO S1
+    S1 → LEXEMA S2
+    S2 → ESPACIO_EN_BLANCO S3
+    S3 → TOKEN_ESPECIAL S4
+    S4 → FINAL
+    S0 → LEXEMA S5
+    S5 → ESPACIO_EN_BLANCO S6
+    S6 → LEXEMA S7
+    S7 → S4
+}
  */
 public class Tokenizador {
 
-    private enum Estado {
-        INICIO,
-        LEXEMA,
-        ESPACIO_EN_BLANCO,
-        TOKEN_ESPECIAL,
-        FINAL
+    
+    /* ESTADOS DE TRANSICION */
+    private enum Estado {       
+            INICIO,
+            LEXEMA,
+            ESPACIO_EN_BLANCO,
+            TOKEN_ESPECIAL,
+            FINAL
     }
-
+    /* este metodo es llamado por la vista del programa para obtener los lexemas que separo el tokenizador*/
     public List<Lexema> obtenerLexemas(String entrada) {
         List<Lexema> lexemas = new ArrayList<>();
         StringBuilder lexemaActual = new StringBuilder();

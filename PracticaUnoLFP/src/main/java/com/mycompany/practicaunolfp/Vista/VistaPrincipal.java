@@ -70,7 +70,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         
     }
     public void mostrarPanelesToken(List<Token> tokens){
-        
+        System.out.println("        DEP");
         List<Token> tokensEspeciales = new ArrayList<>();
         List<Token> tokensSimples = new ArrayList<>();
         
@@ -110,7 +110,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         }
 
         if (!tokenAsignado) {
-            System.out.println("Advertencia: No se encontró un panel para el token en la posición esperada.");
+            JOptionPane.showMessageDialog(barraBotones, " Un token de tipo Square.Color no se coloco en el lienzo ya que el numero de fila o columna no existe \n verifique que las posiciones sean validas"  );
             indiceEspeciales++;
         }
     }

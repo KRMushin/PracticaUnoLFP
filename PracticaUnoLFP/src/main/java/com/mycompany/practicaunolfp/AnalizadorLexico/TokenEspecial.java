@@ -8,6 +8,8 @@ package com.mycompany.practicaunolfp.AnalizadorLexico;
  *
  * @author kevin-mushin
  */
+
+
 public class TokenEspecial extends Token{
     
     private int numeroFila;
@@ -25,13 +27,14 @@ public class TokenEspecial extends Token{
         super(lexema, color, tipoToken);
         establecerNumeros(numeroFila,numeroColumna);
     }
+    /* establece la ubicacion del token en el lienzo*/
     private void establecerNumeros(String numeroFila,String numeroColumna){
         try {
             this.numeroColumna = Integer.parseInt(numeroColumna);
             this.numeroFila = Integer.parseInt(numeroFila);
               
         } catch (NumberFormatException e) {
-            System.out.println(e.getMessage());
+            System.out.println("ERROR: " + e.getMessage());
         }
     }
     
