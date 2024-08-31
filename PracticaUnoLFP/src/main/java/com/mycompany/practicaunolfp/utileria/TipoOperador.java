@@ -78,7 +78,7 @@ public enum TipoOperador {
                 case "=":
                     return "#41D9D4"; 
                 default:
-                    return "#1BA1E2"; 
+                    return "#FFFFFF"; 
             }
         }
     },

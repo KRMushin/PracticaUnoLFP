@@ -14,6 +14,7 @@ import com.mycompany.practicaunolfp.Automatas.OperadorAritmetico;
 import com.mycompany.practicaunolfp.Automatas.OperadorAsignacion;
 import com.mycompany.practicaunolfp.Automatas.OperadorLogico;
 import com.mycompany.practicaunolfp.Automatas.OperadorRelacionComparacion;
+import com.mycompany.practicaunolfp.Automatas.PalabraFuncion;
 import com.mycompany.practicaunolfp.Automatas.PalabrasReservadas;
 import com.mycompany.practicaunolfp.Automatas.SignoSimbolo;
 import com.mycompany.practicaunolfp.Automatas.SquareColorEspecial;
@@ -47,6 +48,7 @@ public class AnalizadorLexico {
    private SignoSimbolo signoSimbolo;
    private SquareColorSimple squareSimple;
    private SquareColorEspecial squareEspecial;
+   private PalabraFuncion palabraFuncion;
 
 
    
@@ -70,6 +72,8 @@ public class AnalizadorLexico {
        this.signoSimbolo = new SignoSimbolo();
        this.squareSimple = new SquareColorSimple();
        this.squareEspecial = new SquareColorEspecial();
+       this.palabraFuncion = new PalabraFuncion();
+       
     }  
     
     
@@ -123,11 +127,6 @@ public class AnalizadorLexico {
               tokens.add(new Token(lexema,color,"ENTEROS"));
               
           }  
-           else if (esOperadorAritmetico(lexemaValor)) {
-                String color = TipoOperador.OPERADOR_ARITMETICO.obtenerColor(lexemaValor);
-                tokens.add(new Token(lexema,color,"OPERADOR_ARITMETICO"));
-              
-          } 
            else if (esIdentificador(lexemaValor)) {              
                 String color = TipoOperador.IDENTIFICADOR.obtenerColor(lexemaValor);
                  tokens.add(new Token(lexema,color,"PALABRA_IDENTIFICADOR" ));
@@ -164,6 +163,21 @@ public class AnalizadorLexico {
               tokens.add(new Token(lexema,color,"CARACTER"));
               
           }
+          else if (esPalabraFuncion(lexema)) {
+                  List<Token> t = palabraFuncion.procesarPalabra(lexema);
+                  for (int j = 0; j < t.size(); j++) {
+                   Token to = t.get(j);
+                      if (to != null) {
+                          System.out.println("  ||||||||||||||||||||||||||| " + to.getTipoToken() + to.getLexema().getValor());
+                         tokens.add(to);
+                      }                   
+               }
+          }else if (esOperadorAritmetico(lexemaValor)) {
+               System.out.println("     ACA ESTA ENTRANDO ");
+                String color = TipoOperador.OPERADOR_ARITMETICO.obtenerColor(lexemaValor);
+                tokens.add(new Token(lexema,color,"OPERADOR_ARITMETICO"));
+              
+          } 
       }
       
     return tokens;
@@ -221,6 +235,9 @@ public class AnalizadorLexico {
     }
     private boolean esSquareEspecial(String lexema){
         return squareEspecial.esSquareEspecial(lexema);
+    }
+    private boolean esPalabraFuncion(Lexema lexema){
+        return palabraFuncion.esPalabraFuncion(lexema.getValor());
     }
     
 }
