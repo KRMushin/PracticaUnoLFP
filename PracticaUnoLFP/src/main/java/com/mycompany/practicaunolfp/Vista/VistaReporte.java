@@ -80,8 +80,13 @@ public class VistaReporte extends javax.swing.JFrame {
     
     private JPanel obtenerPanelColor(String col){
         JPanel jpanel = new JPanel();
-        Color color = Color.decode(col);
-        jpanel.setBackground(color);
+        try {
+               Color color = Color.decode(col);
+               jpanel.setBackground(color);
+        } catch (NumberFormatException e) {
+            System.out.println("ERROR: al obtener el color del panel" + e.getMessage());
+        }
+        
     return jpanel; 
     
     }

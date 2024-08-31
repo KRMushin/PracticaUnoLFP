@@ -27,7 +27,6 @@ public class VistaGuardarLienzo extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.panelLienzo = panelLienzo;
     }
-
     private void validarDatos(){
         String tipoImagen = null;
         if (combobox.getSelectedIndex() != 0) {
@@ -46,9 +45,6 @@ public class VistaGuardarLienzo extends javax.swing.JFrame {
         generador.guardarLienzo(panelLienzo, nombreArch, rut.getText(), tipoImagen,this);
         
     }
-    
-   
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -135,9 +131,6 @@ public class VistaGuardarLienzo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
-    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         JFileChooser fileChooser= new JFileChooser();
         // crear el file chooser de modo que solo pueda escoger carpetas

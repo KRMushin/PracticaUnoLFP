@@ -6,10 +6,8 @@ package com.mycompany.practicaunolfp.utileria;
 
 import com.mycompany.practicaunolfp.AnalizadorLexico.Token;
 import com.mycompany.practicaunolfp.Vista.VistaAutomata;
-import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
@@ -112,7 +110,7 @@ public class GenerarImagenAutomata {
             frameAutomata.getColumnaCuadro().setText(colCuadro);
             
         } catch (Exception e) {
-            System.out.println("    UPS");
+            System.out.println(" ERROR: " +e.getMessage());
         }  
     }
     

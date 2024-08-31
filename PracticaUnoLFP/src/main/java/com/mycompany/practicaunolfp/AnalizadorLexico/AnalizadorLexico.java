@@ -168,15 +168,12 @@ public class AnalizadorLexico {
                   for (int j = 0; j < t.size(); j++) {
                    Token to = t.get(j);
                       if (to != null) {
-                          System.out.println("  ||||||||||||||||||||||||||| " + to.getTipoToken() + to.getLexema().getValor());
                          tokens.add(to);
                       }                   
                }
           }else if (esOperadorAritmetico(lexemaValor)) {
-               System.out.println("     ACA ESTA ENTRANDO ");
                 String color = TipoOperador.OPERADOR_ARITMETICO.obtenerColor(lexemaValor);
-                tokens.add(new Token(lexema,color,"OPERADOR_ARITMETICO"));
-              
+                tokens.add(new Token(lexema,color,"OPERADOR_ARITMETICO"));             
           } 
       }
       

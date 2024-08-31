@@ -119,7 +119,6 @@ public class VistaAutomata extends javax.swing.JFrame {
         try {
             ImageIO.write(imagenAutomata, tipoImagen, output);
             JOptionPane.showMessageDialog(null, "Imagen generada con éxito en " + output.getAbsolutePath());
-            System.out.println("IMAGEN GENERADA CON ÉXITO :)");
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error al generar la imagen: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }

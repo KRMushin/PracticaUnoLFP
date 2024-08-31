@@ -5,7 +5,6 @@
 package com.mycompany.practicaunolfp.Controladores;
 
 import com.mycompany.practicaunolfp.AnalizadorLexico.AnalizadorLexico;
-import com.mycompany.practicaunolfp.AnalizadorLexico.Lexema;
 import com.mycompany.practicaunolfp.AnalizadorLexico.Token;
 import com.mycompany.practicaunolfp.Vista.VistaPrincipal;
 import java.util.List;
@@ -40,9 +39,7 @@ public class ControladorPrincipal {
            mostrarMensaje("El numero de filas y columnas ingresador no puede soportar la cantidad de tokens encontrados \n Numero Tokens: " + tokens.size());
             return;
         }
-        mostrarLexemas(tokens);
         vistaPrincipal.mostrarPanelesToken(tokens);
-
     }
    
     private boolean datosValidos(int numeroFilas, int numeroColumnas){
@@ -53,33 +50,7 @@ public class ControladorPrincipal {
                 }
                 return true;
     }
-    
-    private void mostrarLexemas(List<Token> tokens){
-    
-        System.out.println(tokens.size());
-        for (int i = 0; i < tokens.size(); i++) {
-              Token token = tokens.get(i);
-              System.out.println(" LEXEMA " + token.getLexema().getValor() + " color " + token.getColor() + " Fila" + token.getLexema().getFila() + " columna" + token.getLexema().getColumna() + " l " +token.getTipoToken());
-        }
-    
-    
-    }
     private void mostrarMensaje(String mensaje){
-                    JOptionPane.showMessageDialog(null, mensaje);
-
-        
-    }
-    private void mostLexemas(List<Lexema> lexemas){
-        
-        for (int i = 0; i < lexemas.size(); i++) {
-              Lexema lexema = lexemas.get(i);
-              
-              if (lexema != null) {
-                  System.out.println(lexema.getValor() + " FIl " + lexema.getFila() + " col " + lexema.getColumna());
-            }
-            
-        }
-    
-    }
-    
+         JOptionPane.showMessageDialog(null, mensaje);       
+    }    
 } // cerrar clase

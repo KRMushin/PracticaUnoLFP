@@ -11,6 +11,8 @@ import com.mycompany.practicaunolfp.utileria.GenerarImagenLienzo;
 import com.mycompany.practicaunolfp.utileria.LectorArchivo;
 import com.mycompany.practicaunolfp.utileria.TokenPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.File;
@@ -20,6 +22,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -63,14 +66,18 @@ public class VistaPrincipal extends javax.swing.JFrame {
         
            this.setExtendedState(JFrame.MAXIMIZED_BOTH);
            this.panelContenedor.setLayout(new BorderLayout());
-           jScrollPane1.setPreferredSize(new Dimension(550, 0)); // Ajusta solo el ancho, 0 permite que el alto se ajuste automáticamente
+           jScrollPane1.setPreferredSize(new Dimension(100, 0)); // Ajusta solo el ancho, 0 permite que el alto se ajuste automáticamente
+           panelGrafico.setPreferredSize(new Dimension(800,0));
+           listaNumeros.setPreferredSize(new Dimension(32,0));
+           numerosFila.setLayout(new BoxLayout(numerosFila, BoxLayout.Y_AXIS)); // Disposición vertical
+           numerosFila.setAlignmentY(Component.TOP_ALIGNMENT); // Alinear al principio
+           numerosFila.setBackground(Color.LIGHT_GRAY); 
            this.panelContenedor.add(barraBotones, BorderLayout.NORTH);
-           this.panelContenedor.add(jScrollPane1, BorderLayout.WEST);
-           this.panelContenedor.add(panelGrafico, BorderLayout.CENTER);
-        
+           this.panelContenedor.add(jScrollPane1, BorderLayout.CENTER);
+           this.panelContenedor.add(panelGrafico, BorderLayout.EAST);
+           this.panelContenedor.add(listaNumeros,BorderLayout.WEST);
     }
     public void mostrarPanelesToken(List<Token> tokens){
-        System.out.println("        DEP");
         List<Token> tokensEspeciales = new ArrayList<>();
         List<Token> tokensSimples = new ArrayList<>();
         
@@ -127,7 +134,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
                     if (panel.isPanelVacio()) {
                         Token token = tokensSimples.get(indiceToken);
                         panel.asignarToken(token);
-                        panel.setPanelVacio(false);  // Marcamos el panel como ocupado
+                        panel.setPanelVacio(false); 
                         indiceToken++;
                         tokenAsignado = true;
                         break;
@@ -156,11 +163,24 @@ public class VistaPrincipal extends javax.swing.JFrame {
             int linea = areaTexto.getLineOfOffset(posicion) + 1;
             int columna = posicion  - areaTexto.getLineStartOffset(linea - 1) +1;
             cursorPos.setText(" Linea: " + linea + " Columna " + columna);
+            actualizarNumerosDeLinea();
         } catch (BadLocationException ex) {
-            System.out.println(ex.getMessage());
+            System.out.println(" ERROR AL ACTUALIZAR POSICION" + ex.getMessage());
         }
-    }
-    
+    }    
+    private void actualizarNumerosDeLinea() {
+            numerosFila.removeAll(); // Limpiar el panel antes de actualizar
+            int totalLineas = areaTexto.getLineCount();
+            // Crear una etiqueta para cada número de línea
+            for (int i = 1; i <= totalLineas; i++) {
+                JLabel labelNumero = new JLabel(String.valueOf(i));
+                numerosFila.add(labelNumero);
+            }
+
+            // Redibujar el panel de números de línea
+            numerosFila.revalidate();
+            numerosFila.repaint();
+        }
     private void establecerTamaño(){
             try {
             this.numeroFil = Integer.parseInt(numeroFilas.getText());
@@ -206,6 +226,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         areaTexto = new javax.swing.JTextArea();
         panelGrafico = new javax.swing.JPanel();
+        listaNumeros = new javax.swing.JScrollPane();
+        numerosFila = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -332,14 +354,32 @@ public class VistaPrincipal extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        listaNumeros.setBackground(new java.awt.Color(0, 153, 204));
+
+        numerosFila.setBackground(new java.awt.Color(204, 204, 204));
+
+        javax.swing.GroupLayout numerosFilaLayout = new javax.swing.GroupLayout(numerosFila);
+        numerosFila.setLayout(numerosFilaLayout);
+        numerosFilaLayout.setHorizontalGroup(
+            numerosFilaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        numerosFilaLayout.setVerticalGroup(
+            numerosFilaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 501, Short.MAX_VALUE)
+        );
+
+        listaNumeros.setViewportView(numerosFila);
+
         javax.swing.GroupLayout panelContenedorLayout = new javax.swing.GroupLayout(panelContenedor);
         panelContenedor.setLayout(panelContenedorLayout);
         panelContenedorLayout.setHorizontalGroup(
             panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(barraBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panelContenedorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(listaNumeros, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -350,8 +390,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addComponent(barraBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
-                    .addComponent(panelGrafico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelGrafico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(listaNumeros, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -388,7 +429,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_analizarActionPerformed
 /*  creacion y asignacion de paneles en grafico*/
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-                             establecerTamaño();
+         establecerTamaño();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -426,8 +467,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane listaNumeros;
     private javax.swing.JTextField numeroColumnas;
     private javax.swing.JTextField numeroFilas;
+    private javax.swing.JPanel numerosFila;
     private javax.swing.JPanel panelContenedor;
     private javax.swing.JPanel panelGrafico;
     // End of variables declaration//GEN-END:variables
@@ -436,3 +479,22 @@ public class VistaPrincipal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, mensaje);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

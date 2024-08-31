@@ -56,23 +56,23 @@ public class PalabraFuncion {
         if (!esPalabraFuncion(lexema.getValor()) || constructorPalabra.toString().isEmpty() || constructorSimbolos.toString().isEmpty()) {
             return null;
         }
+        
         if (automataPalabrasReservada.esPalabraReservada(constructorPalabra.toString())) {
-            System.out.println("        SI ESTA RECONOCIENDO P RESERV");
+            
             String color = TipoOperador.PALABRA_RESERVADA.obtenerColor(lexema.getValor());
             tokens.add(new Token(new Lexema(constructorPalabra.toString(),lexema.getFila(),lexema.getColumna()),color,"PALABRA_RESERVADA"));
-        }
-     else if (automataIdentificador.esIdentificador(constructorPalabra.toString())) {
+        } else if (automataIdentificador.esIdentificador(constructorPalabra.toString())) {
+            
             String color = TipoOperador.IDENTIFICADOR.obtenerColor(lexema.getValor());
             tokens.add(new Token(new Lexema(constructorPalabra.toString(),lexema.getFila(),lexema.getColumna()),color,"IDENTIFICADOR"));
-            System.out.println("    1 IDENTIFICADOR");
         }
+        
         String simbolos = constructorSimbolos.toString();
         for (int i = 0; i < simbolos.length(); i++) {
+            
               char caracter = simbolos.charAt(i);
               if (automataSignos.esSignoSimbolo(String.valueOf(caracter))) {
-                  System.out.println(caracter);
                   String color = TipoOperador.SIGNO_SIMBOLO.obtenerColor(String.valueOf(caracter));
-                  System.out.println("  1 simbolo");
                   tokens.add(new Token(new Lexema(String.valueOf(caracter),lexema.getFila(),lexema.getFila()),color,"SIGNO_SIMBOLO"));
             }
         }
