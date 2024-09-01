@@ -1,0 +1,2 @@
+. , [ ] { } ( ) 'S' False "cadena" 0.0001 1525 Loop Return Const = += -= *= /=
+And Or Not <= >= < > <> == * Mod /  -  + userName
