@@ -49,7 +49,7 @@ public class Tokenizador {
 
             switch (estadoActual) {
                 case INICIO:
-                    if (Character.isWhitespace(caracter)) {
+                    if (esEspacioEnBlanco(caracter)) {
                         if (caracter == '\n') {
                             fila++;
                             columna = 0;
@@ -67,7 +67,7 @@ public class Tokenizador {
                     break;
 
                 case LEXEMA:
-                    if (Character.isWhitespace(caracter)) {
+                    if (esEspacioEnBlanco(caracter)) {
                         lexemas.add(new Lexema(lexemaActual.toString(), fila, inicioColumnaLexema));
                         lexemaActual.setLength(0);
                         if (caracter == '\n') {
@@ -89,7 +89,7 @@ public class Tokenizador {
                         fila++;
                         columna = 0;
                     }
-                    if (!Character.isWhitespace(caracter)) {
+                    if (!esEspacioEnBlanco(caracter)) {
                         estadoActual = Estado.LEXEMA;
                         inicioColumnaLexema = columna;  // Registrar inicio de columna del nuevo lexema
                         lexemaActual.append(caracter);
@@ -139,8 +139,30 @@ public class Tokenizador {
 
         return lexemas;
     }
-
+    private boolean esEspacioEnBlanco(char caracter) {
+    // Devuelve verdadero si el carácter es un espacio en blanco, salto linea, espacio tabular o seccion pagina
+    return caracter == ' ' || caracter == '\t' || caracter == '\n' || caracter == '\r' || caracter == '\f';
+}
+    
     private boolean esInicioDeTokenEspecial(String lexema, char siguienteCaracter) {
-        return lexema.endsWith("Square.Color") && siguienteCaracter == '(';
-    }
+            String subcadena = "Square.Color";
+            int longitudLexema = lexema.length();
+            int longitudSubcadena = subcadena.length();
+
+            //  verificcion d eprimera linea para ver que ambos coincidad con el tamaño 
+            if (longitudLexema < longitudSubcadena) {
+                return false;
+            }
+
+            // se compara cada dato con el de la cadena
+            for (int i = 0; i < longitudSubcadena; i++) {
+                if (lexema.charAt(longitudLexema - longitudSubcadena + i) != subcadena.charAt(i)) {
+                    return false; 
+                }
+            }
+
+            // enviar respuesta booleana
+            return siguienteCaracter == '(';
+}
+
 }

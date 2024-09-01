@@ -49,7 +49,6 @@ public class PalabraFuncion {
         this.constructorSimbolos.setLength(0);
     }
     public List<Token> procesarPalabra(Lexema lexema){
-        System.out.println("                                    u" + lexema.getValor());
         List<Token> tokens = new ArrayList<>();
         
         

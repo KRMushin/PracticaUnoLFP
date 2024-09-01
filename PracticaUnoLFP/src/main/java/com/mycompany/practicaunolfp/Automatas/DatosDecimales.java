@@ -46,7 +46,7 @@ public class DatosDecimales {
 
             switch (estadoActual) {
                 case S0:
-                    if (Character.isDigit(caracter)) {
+                    if (esDigito(caracter)) {
                         estadoActual = Produccion.S1;
                     } else {
                         estadoActual = Produccion.ERROR;
@@ -54,7 +54,7 @@ public class DatosDecimales {
                     break;
 
                 case S1:
-                    if (Character.isDigit(caracter)) {
+                    if (esDigito(caracter)) {
                         // Se queda en S1 al recibir más dígitos de la parte entera
                     } else if (caracter == '.') {
                         // Punto decimal después de la parte entera
@@ -65,7 +65,7 @@ public class DatosDecimales {
                     break;
 
                 case S2:
-                    if (Character.isDigit(caracter)) {
+                    if (esDigito(caracter)) {
                          // Primer dígito de la parte fraccionaria
                         estadoActual = Produccion.S3; 
                     } else {
@@ -74,7 +74,7 @@ public class DatosDecimales {
                     break;
 
                 case S3:
-                    if (Character.isDigit(caracter)) {
+                    if (esDigito(caracter)) {
                         // Se queda en S3 al recibir más dígitos de la parte fraccion
                     } else {
                         estadoActual = Produccion.ERROR;
@@ -95,5 +95,10 @@ public class DatosDecimales {
         // estado de aceptacion S3
         return estadoActual == Produccion.S3;
     }
+       
+
+      private boolean esDigito(char caracter) {
+           return caracter >= '0' && caracter <= '9';
+      }
     
 }

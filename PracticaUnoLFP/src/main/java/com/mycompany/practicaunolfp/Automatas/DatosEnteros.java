@@ -47,7 +47,7 @@ public class DatosEnteros {
                     if (caracter == '-') {
                         // Va al estado S2 si es un signo negativo
                         estadoActual = Produccion.S2; 
-                    } else if (Character.isDigit(caracter)) {
+                    } else if (esDigito(caracter)) {
                          // Va al estado S1 si es un dígito
                         estadoActual = Produccion.S1;
                     } else {
@@ -56,7 +56,7 @@ public class DatosEnteros {
                     break;
 
                 case S2:
-                    if (Character.isDigit(caracter)) {
+                    if (esDigito(caracter)) {
                          //despes de un '-', debe venir un dígito
                         estadoActual = Produccion.S1;
                     } else {
@@ -65,7 +65,7 @@ public class DatosEnteros {
                     break;
 
                 case S1:
-                    if (!Character.isDigit(caracter)) {
+                    if (!esDigito(caracter)) {
                         estadoActual = Produccion.ERROR; 
                     }
                     break;
@@ -83,5 +83,9 @@ public class DatosEnteros {
         // estado de aceptacion S1
         return estadoActual == Produccion.S1;
     }
+   
+       private boolean esDigito(char caracter) {
+            return caracter >= '0' && caracter <= '9';
+        }
     
 }

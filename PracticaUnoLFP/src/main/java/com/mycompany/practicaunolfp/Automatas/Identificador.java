@@ -43,7 +43,7 @@ public class Identificador {
 
             if (estadoActual == Produccion.S0) {
                 // estado S0: Solo aceptamos letras al inicio
-                if (Character.isLetter(caracter)) {
+                if (esLetra(caracter)) {
                     //s0 ---->  [ A -Z , a- z] S1
                     estadoActual = Produccion.S1;
                 } else {
@@ -52,7 +52,7 @@ public class Identificador {
                 }
             } else if (estadoActual == Produccion.S1) {
                 // estado S1: Aceptamos letras, dígitos o guion bajo
-                if (Character.isLetterOrDigit(caracter) || caracter == '_') {
+                if (esLetraODigito(caracter) || caracter == '_') {
                     // permanece en S1 si es válido
                     estadoActual = Produccion.S1;
                 } else {
@@ -67,6 +67,18 @@ public class Identificador {
         // estado de aceptacion S1
         return estadoActual == Produccion.S1 && lexema.length() > 0;
     }
+       
+       private boolean esLetra(char caracter) {
+            return (caracter >= 'A' && caracter <= 'Z') || (caracter >= 'a' && caracter <= 'z');
+        }
+
+        private boolean esLetraODigito(char caracter) {
+            return esLetra(caracter) || esDigito(caracter);
+        }
+
+        private boolean esDigito(char caracter) {
+            return caracter >= '0' && caracter <= '9';
+        }
     
     
     
