@@ -9,10 +9,8 @@ package com.mycompany.practicaunolfp.Automatas;
  * @author kevin-mushin
  */
 public class DatosCadena {
-    /*GRAMATICA
-N = { S0 , S1, S2 }
-T = {A-Z, a-z , 0-9, " }
-P = {
+    /*
+Q = {
              S0 ----> " S1
              S1 ----> [letras, números] S1
              S1 ----> " S2
@@ -41,7 +39,7 @@ S = { S0 }
                     switch (estadoActual) {
                         case S0:
                             if (caracter == '"') {
-                                //estado S1 al encontrar una comilla doble
+                                // si encuentra una comilla se va al estado S1 ya que puede ser una cadena
                                 estadoActual = Produccion.S1;
                             } else {
                                 estadoActual = Produccion.ERROR;
@@ -50,7 +48,7 @@ S = { S0 }
 
                         case S1:
                             if (esLetra(caracter) || esDigito(caracter)) {
-                                // Permanece en S1 si es letra o número
+                                // permanece en S1 si es letra o número
                                 estadoActual = Produccion.S1; 
                             } else if (caracter == '"') {
                                 estadoActual = Produccion.S2; 
@@ -65,7 +63,8 @@ S = { S0 }
                     }
 
                     if (estadoActual == Produccion.ERROR) {
-                        break; // Salida en caso de error
+                        //salida si el estado de actual no es aceptador
+                        break;
                     }
                 }
 

@@ -10,8 +10,6 @@ package com.mycompany.practicaunolfp.Automatas;
  */
 public class DatosCaracter {
     /*
-    N = { S0, S1, S2, ERROR }
-    T = { LETRA, DIGITO, SIMBOLO } 
     P = {
         S0 --> ' S1
         S1 --> [ LETRA, DIGITO, SIMBOLO ] S2
@@ -43,7 +41,7 @@ public class DatosCaracter {
             switch (estadoActual) {
                 case S0:
                     if (caracter == '\'') {
-                         // Encuentra la primera comilla simple
+                         // si encuentra una comilla simple es posible que sea un caracter
                         estadoActual = Produccion.S1;
                     } else {
                         estadoActual = Produccion.ERROR;
@@ -52,7 +50,7 @@ public class DatosCaracter {
 
                 case S1:
                     if (esDigito(caracter) || esLetra(caracter) || esSimbolo(caracter)) {
-                        // Encuentra un carácter válido
+                        // entra si es un caracter valido
                         estadoActual = Produccion.S2; 
                     } else {
                         estadoActual = Produccion.ERROR;
@@ -61,7 +59,7 @@ public class DatosCaracter {
 
                 case S2:
                     if (caracter == '\'') {
-                        // Encuentra la segunda comilla simple, acepta la entrada
+                        // si encuentra la segunda comiilla entra en estado de acpetacion
                         estadoActual = Produccion.S3;
                     } else {
                         estadoActual = Produccion.ERROR;
@@ -74,7 +72,6 @@ public class DatosCaracter {
             }
 
             if (estadoActual == Produccion.ERROR) {
-                // Salida en caso de error
                 break; 
             }
         }

@@ -22,12 +22,10 @@ public class PalabrasReservadas {
         
         S0 ---> [A-Z]S1
         s1 ----> [ a- z]s1
-        s1 --->  lambda
         S1 ----> [.] S2
         S2 ---> [ A -Z ,] S3
         S3 ---> [ a-z]s3
         S3 ----> [A-Z]S3
-        s3 ----> lambda
     } 
     S = S0
     */
@@ -56,6 +54,7 @@ public class PalabrasReservadas {
             switch (estadoActual) {
                 case S0:
                             if (esLetraMayuscula(caracter)) {
+                                //inicio de estado solo si empieza con mayuscula
                                 estadoActual = Produccion.S1;
                              }else{
                                 estadoActual = Produccion.ERROR;
@@ -63,6 +62,7 @@ public class PalabrasReservadas {
                     break;
                 case S1:
                             if (esLetraMinuscula(caracter)) {
+                                //luego de s0 solo permite mayuscualas o minusculas
                                 estadoActual = Produccion.S1;
                             }
                             else if (caracter == '.') {

@@ -107,7 +107,7 @@ public class OperadorLogico {
             }
             
             if (estadoActual == Produccion.ERROR) {
-                break; // Salida en caso de error
+                break; // salida por error o estado no aceptado
             }
         }
         

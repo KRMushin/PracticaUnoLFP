@@ -10,8 +10,7 @@ package com.mycompany.practicaunolfp.Automatas;
  */
 public class DatosDecimales {
     /*
-    N = {S0 , S1 , S2 }
-    T = { 0-9 , . }
+
     P = {
             
             S0 --> [ 0- 9]S1
@@ -55,9 +54,9 @@ public class DatosDecimales {
 
                 case S1:
                     if (esDigito(caracter)) {
-                        // Se queda en S1 al recibir más dígitos de la parte entera
+                        // se queda en S1 al recibir más dígitos de la parte entera
                     } else if (caracter == '.') {
-                        // Punto decimal después de la parte entera
+                        // punto decimal después de la parte entera
                         estadoActual = Produccion.S2;
                     } else {
                         estadoActual = Produccion.ERROR;
@@ -66,7 +65,7 @@ public class DatosDecimales {
 
                 case S2:
                     if (esDigito(caracter)) {
-                         // Primer dígito de la parte fraccionaria
+                        // primer digito hallado
                         estadoActual = Produccion.S3; 
                     } else {
                         estadoActual = Produccion.ERROR;
@@ -75,7 +74,7 @@ public class DatosDecimales {
 
                 case S3:
                     if (esDigito(caracter)) {
-                        // Se queda en S3 al recibir más dígitos de la parte fraccion
+                        // se queda en estado 3 si existen mas digitos
                     } else {
                         estadoActual = Produccion.ERROR;
                     }
@@ -87,7 +86,6 @@ public class DatosDecimales {
             }
 
             if (estadoActual == Produccion.ERROR) {
-                // Salida en caso de error
                 break;  
             }
         }

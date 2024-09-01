@@ -119,7 +119,7 @@ public class DatosBooleano {
             }
         }
 
-        // El valor booleano es válido si termina en el estado ACEPTACION
+        // el valor booleano es válido si termina en el estado ACEPTACION
         return estadoActual == Produccion.ACEPTACION;
     }
 }

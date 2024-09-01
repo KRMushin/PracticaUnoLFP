@@ -9,14 +9,7 @@ package com.mycompany.practicaunolfp.Automatas;
  * @author kevin-mushin
  */
 public class Identificador {
-    /*
-    N = { S0 , S1}
-    T = { A-Z , a-z ,  _ , 0- 9, }
-    P = s0 --> 
-    S = S0
-    */
-    
-    
+        
     public enum Produccion{ 
     
         S0, S1, ERROR;

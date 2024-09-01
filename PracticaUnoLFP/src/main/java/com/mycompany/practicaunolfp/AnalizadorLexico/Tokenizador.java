@@ -34,7 +34,7 @@ public class Tokenizador {
             TOKEN_ESPECIAL,
             FINAL
     }
-    /* este metodo es llamado por la vista del programa para obtener los lexemas que separo el tokenizador*/
+    /* este metodo del autoamta es llamado por la vista del programa para obtener los lexemas que separo el tokenizador*/
     public List<Lexema> obtenerLexemas(String entrada) {
         List<Lexema> lexemas = new ArrayList<>();
         StringBuilder lexemaActual = new StringBuilder();
@@ -57,11 +57,11 @@ public class Tokenizador {
                         estadoActual = Estado.ESPACIO_EN_BLANCO;
                     } else if (esInicioDeTokenEspecial(lexemaActual.toString(), caracter)) {
                         estadoActual = Estado.TOKEN_ESPECIAL;
-                        inicioColumnaLexema = columna;  // Registrar inicio de columna del token especial
+                        inicioColumnaLexema = columna; 
                         lexemaActual.append(caracter);
                     } else {
                         estadoActual = Estado.LEXEMA;
-                        inicioColumnaLexema = columna;  // Registrar inicio de columna del lexema
+                        inicioColumnaLexema = columna;
                         lexemaActual.append(caracter);
                     }
                     break;
@@ -76,8 +76,8 @@ public class Tokenizador {
                         }
                         estadoActual = Estado.ESPACIO_EN_BLANCO;
                     } else if (esInicioDeTokenEspecial(lexemaActual.toString(), caracter)) {
-                        // No agregar el lexema aquí si es un token especial, solo cambiar el estado
-                        lexemaActual.append(caracter);  // Añadir el carácter que disparó el cambio de estado
+                        // agrega el lexema actual si la lectura del boleano resulta que es inicio de un square.color especial
+                        lexemaActual.append(caracter); 
                         estadoActual = Estado.TOKEN_ESPECIAL;
                     } else {
                         lexemaActual.append(caracter);
@@ -91,13 +91,14 @@ public class Tokenizador {
                     }
                     if (!esEspacioEnBlanco(caracter)) {
                         estadoActual = Estado.LEXEMA;
-                        inicioColumnaLexema = columna;  // Registrar inicio de columna del nuevo lexema
+                        // se modifica el numero de columna para que despues se le asigne al lexema
+                        inicioColumnaLexema = columna; 
                         lexemaActual.append(caracter);
                     }
                     break;
 
                 case TOKEN_ESPECIAL:
-                    // Continuar construyendo el token especial sin agregar partes intermedias
+                    // continuar  construyendo el token especial sin agregar partes intermedias
                     while (i < entrada.length()) {
                         char c = entrada.charAt(i);
                         lexemaActual.append(c);
@@ -118,14 +119,14 @@ public class Tokenizador {
                         }
                         i++;
                     }
-                    // Añadir el token completo como un único lexema
+                    // aca se crea el objeto de tipo lexema y se añade a la lista
                     lexemas.add(new Lexema(lexemaActual.toString(), fila, inicioColumnaLexema));
                     lexemaActual.setLength(0);
                     estadoActual = Estado.INICIO;
                     break;
 
                 case FINAL:
-                    // No se necesita implementación
+                    // frena ya que esta en estado de aceptacion
                     break;
             }
 
@@ -140,7 +141,7 @@ public class Tokenizador {
         return lexemas;
     }
     private boolean esEspacioEnBlanco(char caracter) {
-    // Devuelve verdadero si el carácter es un espacio en blanco, salto linea, espacio tabular o seccion pagina
+    // se obtiene si: es  verdadero o si el carácter es un espacio en blanco, salto linea, espacio tabular o seccion pagina
     return caracter == ' ' || caracter == '\t' || caracter == '\n' || caracter == '\r' || caracter == '\f';
 }
     

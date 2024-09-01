@@ -9,20 +9,7 @@ package com.mycompany.practicaunolfp.Automatas;
  * @author kevin-mushin
  */
 public class OperadorAritmetico {
-    /* gramatica NTPS
-    N = { s0, s2, s1,s3  }
-    T = { + , - , ^, / , Mod, *  }
-    P = { 
-            so -- > s1
-            s1 --> [ + , - , ^, / *] 
-    
-            so --- > M s2
-            s2 ---> O s3
-            s3 ---> Ds4
-            s4 ---> lambda
-    }
-    S = {  s0   }
-    */
+
     public enum Produccion{
         S1 , S2 , S3 , S0 ,S4, ERROR;
     }
@@ -43,6 +30,7 @@ public class OperadorAritmetico {
 
             switch (estadoActual) {
                 case S0:
+                    // evalua caracter valido
                     if (caracter == '+' || caracter == '-' || caracter == '*' || caracter == '^' || caracter == '/') {
                         estadoActual = Produccion.S1; 
                     } else if (caracter == 'M') {

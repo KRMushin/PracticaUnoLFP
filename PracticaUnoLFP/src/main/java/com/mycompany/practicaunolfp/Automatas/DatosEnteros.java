@@ -45,10 +45,10 @@ public class DatosEnteros {
             switch (estadoActual) {
                 case S0:
                     if (caracter == '-') {
-                        // Va al estado S2 si es un signo negativo
+                        // hacia el estado S2 si es un signo negativo
                         estadoActual = Produccion.S2; 
                     } else if (esDigito(caracter)) {
-                         // Va al estado S1 si es un dígito
+                         // haciaa el estado S1 si es un dígito
                         estadoActual = Produccion.S1;
                     } else {
                         estadoActual = Produccion.ERROR;
@@ -76,7 +76,7 @@ public class DatosEnteros {
             }
 
             if (estadoActual == Produccion.ERROR) {
-                break; // Salida en caso de error
+                break; // salida por error
             }
         }
 

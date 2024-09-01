@@ -16,10 +16,10 @@ public class OperadorRelacionComparacion {
         S0 --> S1 (si recibe '='),
         S0 --> S2 (si recibe '>'),
         S0 --> S3 (si recibe '<'),
-        S1 --> S1 (si recibe '='), // ==
-        S3 --> S1 (si recibe '='), // <=
-        S2 --> S1 (si recibe '='), // >=
-        S3 --> S1 (si recibe '>'), // <>
+        S1 --> S1 (si recibe '='), 
+        S3 --> S1 (si recibe '='), 
+        S2 --> S1 (si recibe '='), 
+        S3 --> S1 (si recibe '>'), 
 
     }
     S = S0
@@ -90,7 +90,7 @@ public class OperadorRelacionComparacion {
             }
             
             if (estadoActual == Produccion.ERROR) {
-                break; // Salida en caso de error
+                break; // salida
             }
         }
         

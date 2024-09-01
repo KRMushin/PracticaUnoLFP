@@ -269,6 +269,7 @@ public class SquareColorEspecial {
             }
         }
         if (estadoActual == P.FINAL) {
+            // cosntruye la cadena completa con el square color especial
             this.color = colorConstructor.toString();
             this.numeroFilas = construirFilas.toString();
             this.numeroColumnas = construirColumnas.toString();

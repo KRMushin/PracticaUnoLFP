@@ -39,6 +39,7 @@ public class SignoSimbolo {
               switch (estadoActual) {
                 case S0:
                                 if (esSimboloValido(caracter)) {
+                                    // si es un simbolo del diccionario entra al estado S1
                                     estadoActual = Produccion.S1;
                                 }else {
                                     estadoActual = Produccion.ERROR;
@@ -46,7 +47,8 @@ public class SignoSimbolo {
                     break;
                 case S1:
                                 if (esSimboloValido(caracter)) {
-                                    estadoActual = Produccion.S1; // estado de aceptacion
+                                    // estado de aceptacion
+                                    estadoActual = Produccion.S1; 
                                  }else{
                                     estadoActual = Produccion.ERROR;
                                 }
