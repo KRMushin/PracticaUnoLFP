@@ -66,11 +66,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         
            this.setExtendedState(JFrame.MAXIMIZED_BOTH);
            this.panelContenedor.setLayout(new BorderLayout());
-           jScrollPane1.setPreferredSize(new Dimension(100, 0)); // Ajusta solo el ancho, 0 permite que el alto se ajuste automáticamente
+           jScrollPane1.setPreferredSize(new Dimension(100, 0));
            panelGrafico.setPreferredSize(new Dimension(800,0));
            listaNumeros.setPreferredSize(new Dimension(32,0));
-           numerosFila.setLayout(new BoxLayout(numerosFila, BoxLayout.Y_AXIS)); // Disposición vertical
-           numerosFila.setAlignmentY(Component.TOP_ALIGNMENT); // Alinear al principio
+           numerosFila.setLayout(new BoxLayout(numerosFila, BoxLayout.Y_AXIS));
+           numerosFila.setAlignmentY(Component.TOP_ALIGNMENT);
            numerosFila.setBackground(Color.LIGHT_GRAY); 
            this.panelContenedor.add(barraBotones, BorderLayout.NORTH);
            this.panelContenedor.add(jScrollPane1, BorderLayout.CENTER);
@@ -169,15 +169,15 @@ public class VistaPrincipal extends javax.swing.JFrame {
         }
     }    
     private void actualizarNumerosDeLinea() {
-            numerosFila.removeAll(); // Limpiar el panel antes de actualizar
+            numerosFila.removeAll(); // liimpiar el panel antes de actualizar
             int totalLineas = areaTexto.getLineCount();
-            // Crear una etiqueta para cada número de línea
+            // crear una etiqueta para cada número de línea
             for (int i = 1; i <= totalLineas; i++) {
                 JLabel labelNumero = new JLabel(String.valueOf(i));
                 numerosFila.add(labelNumero);
             }
 
-            // Redibujar el panel de números de línea
+            // redibujar el panel de números de línea
             numerosFila.revalidate();
             numerosFila.repaint();
         }

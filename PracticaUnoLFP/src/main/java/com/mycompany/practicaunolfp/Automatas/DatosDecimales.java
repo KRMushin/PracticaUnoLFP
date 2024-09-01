@@ -47,7 +47,7 @@ public class DatosDecimales {
             switch (estadoActual) {
                 case S0:
                     if (Character.isDigit(caracter)) {
-                        estadoActual = Produccion.S1;  // Primer dígito, parte entera
+                        estadoActual = Produccion.S1;
                     } else {
                         estadoActual = Produccion.ERROR;
                     }
@@ -57,7 +57,8 @@ public class DatosDecimales {
                     if (Character.isDigit(caracter)) {
                         // Se queda en S1 al recibir más dígitos de la parte entera
                     } else if (caracter == '.') {
-                        estadoActual = Produccion.S2;  // Punto decimal después de la parte entera
+                        // Punto decimal después de la parte entera
+                        estadoActual = Produccion.S2;
                     } else {
                         estadoActual = Produccion.ERROR;
                     }
@@ -65,7 +66,8 @@ public class DatosDecimales {
 
                 case S2:
                     if (Character.isDigit(caracter)) {
-                        estadoActual = Produccion.S3;  // Primer dígito de la parte fraccionaria
+                         // Primer dígito de la parte fraccionaria
+                        estadoActual = Produccion.S3; 
                     } else {
                         estadoActual = Produccion.ERROR;
                     }
@@ -73,7 +75,7 @@ public class DatosDecimales {
 
                 case S3:
                     if (Character.isDigit(caracter)) {
-                        // Se queda en S3 al recibir más dígitos de la parte fraccionaria
+                        // Se queda en S3 al recibir más dígitos de la parte fraccion
                     } else {
                         estadoActual = Produccion.ERROR;
                     }
@@ -85,11 +87,12 @@ public class DatosDecimales {
             }
 
             if (estadoActual == Produccion.ERROR) {
-                break;  // Salida en caso de error
+                // Salida en caso de error
+                break;  
             }
         }
 
-        // El número es válido si termina en S3 (decimal)
+        // estado de aceptacion S3
         return estadoActual == Produccion.S3;
     }
     

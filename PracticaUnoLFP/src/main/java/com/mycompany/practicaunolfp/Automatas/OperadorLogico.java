@@ -77,7 +77,8 @@ public class OperadorLogico {
                     
                 case S4:
                     if (caracter == 'r') {
-                        estadoActual = Produccion.S3; // "Or" aceptado
+                        // "Or" aceptado
+                        estadoActual = Produccion.S3; 
                     } else {
                         estadoActual = Produccion.ERROR;
                     }
@@ -93,7 +94,8 @@ public class OperadorLogico {
                     
                 case S5:
                     if (caracter == 't') {
-                        estadoActual = Produccion.S3; // "Not" aceptado
+                         // NOT  aceptado
+                        estadoActual = Produccion.S3;
                     } else {
                         estadoActual = Produccion.ERROR;
                     }
@@ -109,7 +111,7 @@ public class OperadorLogico {
             }
         }
         
-        // El operador lógico es válido si terminamos en el estado S3 (para "And", "Or", "Not")
+        // estadoo de aceptacion S3
         return estadoActual == Produccion.S3;
     }
 }

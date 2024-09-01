@@ -49,7 +49,7 @@ public class GenerarImagenAutomata {
         graphConstructor.append("digraph G {\n");
         graphConstructor.append("rankdir=LR;\n");
         graphConstructor.append("node [shape = circle];\n");
-        
+        /* porc cada lexema asigna un circle en */
           for (int i = 0; i < lexema.length(); i++) {
                char caracter = lexema.charAt(i);
                String nodo = "node" + i;
@@ -81,7 +81,7 @@ public class GenerarImagenAutomata {
             writer.flush();
             writer.close();
 
-            // Leer la salida del proceso y convertirla en una imagen
+            // salida del proceso y convertirla en una imagen
             InputStream inputStream = process.getInputStream();
            imagenAutomata = ImageIO.read(inputStream);
             

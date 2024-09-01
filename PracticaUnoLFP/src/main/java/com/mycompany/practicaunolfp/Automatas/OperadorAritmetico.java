@@ -44,9 +44,9 @@ public class OperadorAritmetico {
             switch (estadoActual) {
                 case S0:
                     if (caracter == '+' || caracter == '-' || caracter == '*' || caracter == '^' || caracter == '/') {
-                        estadoActual = Produccion.S1;  // Acepta operadores simples
+                        estadoActual = Produccion.S1; 
                     } else if (caracter == 'M') {
-                        estadoActual = Produccion.S2;  // Comienza a procesar "Mod"
+                        estadoActual = Produccion.S2;  
                     } else {
                         estadoActual = Produccion.ERROR;
                         return false;
@@ -64,7 +64,7 @@ public class OperadorAritmetico {
 
                 case S3:
                     if (caracter == 'd') {
-                        estadoActual = Produccion.S4;  // Finaliza el procesamiento de "Mod"
+                        estadoActual = Produccion.S4; 
                     } else {
                         estadoActual = Produccion.ERROR;
                         return false;
@@ -77,10 +77,10 @@ public class OperadorAritmetico {
             }
 
             if (estadoActual == Produccion.S1 || estadoActual == Produccion.S4) {
-                break; // El operador ya ha sido reconocido completamente
+                break;
             }
         }
-
+        //estados de aceptacion s1 y s4
         return estadoActual == Produccion.S1 || estadoActual == Produccion.S4;
     }
     

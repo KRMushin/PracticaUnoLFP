@@ -36,13 +36,13 @@ public class Identificador {
     
     public boolean esIdentificador(String lexema){
         
-         reiniciar();  // Reinicia el estado para cada lexema
+         reiniciar(); 
 
         for (int i = 0; i < lexema.length(); i++) {
             char caracter = lexema.charAt(i);
 
             if (estadoActual == Produccion.S0) {
-                // Estado S0: Solo aceptamos letras al inicio
+                // estado S0: Solo aceptamos letras al inicio
                 if (Character.isLetter(caracter)) {
                     //s0 ---->  [ A -Z , a- z] S1
                     estadoActual = Produccion.S1;
@@ -51,9 +51,9 @@ public class Identificador {
                     break;
                 }
             } else if (estadoActual == Produccion.S1) {
-                // Estado S1: Aceptamos letras, dígitos o guion bajo
+                // estado S1: Aceptamos letras, dígitos o guion bajo
                 if (Character.isLetterOrDigit(caracter) || caracter == '_') {
-                    // Permanece en S1 si es válido
+                    // permanece en S1 si es válido
                     estadoActual = Produccion.S1;
                 } else {
                     estadoActual = Produccion.ERROR;
@@ -64,7 +64,7 @@ public class Identificador {
                 
             }
         }
-        // El lexema es un identificador válido si terminó en S1
+        // estado de aceptacion S1
         return estadoActual == Produccion.S1 && lexema.length() > 0;
     }
     

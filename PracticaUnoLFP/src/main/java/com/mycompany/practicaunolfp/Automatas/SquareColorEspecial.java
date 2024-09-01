@@ -228,7 +228,7 @@ public class SquareColorEspecial {
                     } else if (caracter == ',') {
                         estadoActual = P.S25;
                     } else if (caracter == ' ') {
-                        // Permite espacios, pero no cambia el estado
+                        // permite espacios, pero no cambia el estado
                     } else {
                         estadoActual = P.ERROR;
                     }

@@ -161,6 +161,6 @@ public enum TipoOperador {
     };
     
 
-    // Método abstracto a implementar en cada tipo de operador
+    // metodo abstracto a implementar en cada tipo de operador
     public abstract String obtenerColor(String lexema);
 }

@@ -99,8 +99,8 @@ public class PalabrasReservadas {
                 break; 
             }
         }
-
-        return estadoActual == Produccion.S1 || estadoActual == Produccion.S3;  // La palabra es válida solo si termina en S1
+        //estado de aceptacion s1,s3
+        return estadoActual == Produccion.S1 || estadoActual == Produccion.S3;  
     }
 
     private boolean esLetraMayuscula(char caracter) {

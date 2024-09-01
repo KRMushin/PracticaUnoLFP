@@ -11,7 +11,7 @@ package com.mycompany.practicaunolfp.Automatas;
 public class DatosBooleano {
     /*
     N = { S0 , S1 , S2 , S3 , S4 , S6 , S7 ,S8}
-    T = { T , R , U , F , A , L , S ,E }
+    T = {  T , R , U , E ,  F , A , L , S  , E }
     P = {
         S0 --> TS2
         S2 --> RS3
@@ -115,7 +115,7 @@ public class DatosBooleano {
             }
 
             if (estadoActual == Produccion.ERROR) {
-                break;  // Salida en caso de error
+                break; 
             }
         }
 

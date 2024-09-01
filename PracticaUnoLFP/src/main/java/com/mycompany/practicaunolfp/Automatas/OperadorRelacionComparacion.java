@@ -48,11 +48,11 @@ public class OperadorRelacionComparacion {
             switch (estadoActual) {
                 case S0:
                     if (caracter == '=') {
-                        estadoActual = Produccion.S1;  // Posible ==
+                        estadoActual = Produccion.S1;  // posible ==
                     } else if (caracter == '>') {
-                        estadoActual = Produccion.S2;  // Mayor que o posible >=
+                        estadoActual = Produccion.S2;  // mayor que o posible >=
                     } else if (caracter == '<') {
-                        estadoActual = Produccion.S3;  // Menor que o posible <= o <>
+                        estadoActual = Produccion.S3;  // menor que o posible <= o <>
                     } else {
                         estadoActual = Produccion.ERROR;
                     }
@@ -60,27 +60,27 @@ public class OperadorRelacionComparacion {
                 
                 case S1:
                     if (caracter == '=') {
-                        estadoActual = Produccion.S4;  // Igual (==)
+                        estadoActual = Produccion.S4;  // igual (==)
                     } else {
-                        estadoActual = Produccion.ERROR; // No se permite solo "="
+                        estadoActual = Produccion.ERROR; // o se permite solo "="
                     }
                     break;
                     
                 case S2:
                     if (caracter == '=') {
-                        estadoActual = Produccion.S4;  // Mayor o igual (>=)
+                        estadoActual = Produccion.S4;  // mayor o igual (>=)
                     } else {
-                        estadoActual = Produccion.ERROR; // Mayor que (>) ya es aceptado
+                        estadoActual = Produccion.ERROR; // mmayor que (>) ya es aceptado
                     }
                     break;
                     
                 case S3:
                     if (caracter == '=') {
-                        estadoActual = Produccion.S4;  // Menor o igual (<=)
+                        estadoActual = Produccion.S4;  // menor o igual (<=)
                     } else if (caracter == '>') {
-                        estadoActual = Produccion.S4;  // Diferente (<>)
+                        estadoActual = Produccion.S4;  // diferente (<>)
                     } else {
-                        estadoActual = Produccion.ERROR; // Menor que (<) ya es aceptado
+                        estadoActual = Produccion.ERROR; // menor que (<) ya es aceptado
                     }
                     break;
 
@@ -94,7 +94,7 @@ public class OperadorRelacionComparacion {
             }
         }
         
-        // El operador relacional es válido si terminamos en el estado S2, S3, o S4
+        // estadis de aceptaacion S2 ,S3 , S4
         return estadoActual == Produccion.S2 || estadoActual == Produccion.S3 || estadoActual == Produccion.S4;
     }
 }

@@ -13,11 +13,10 @@ public class DatosCadena {
 N = { S0 , S1, S2 }
 T = {A-Z, a-z , 0-9, " }
 P = {
-        S0 ----> " S1
-        S1 ----> [letras, números] S1
-        S1 ----> " S2
-    
-}
+             S0 ----> " S1
+             S1 ----> [letras, números] S1
+             S1 ----> " S2
+       }
 S = { S0 }
 */
     public enum Produccion {
@@ -42,7 +41,8 @@ S = { S0 }
                     switch (estadoActual) {
                         case S0:
                             if (caracter == '"') {
-                                estadoActual = Produccion.S1; // Encuentra la primera comilla doble
+                                //estado S1 al encontrar una comilla doble
+                                estadoActual = Produccion.S1;
                             } else {
                                 estadoActual = Produccion.ERROR;
                             }
@@ -50,9 +50,10 @@ S = { S0 }
 
                         case S1:
                             if (esLetra(caracter) || esDigito(caracter)) {
-                                estadoActual = Produccion.S1; // Permanece en S1 si es letra o número
+                                // Permanece en S1 si es letra o número
+                                estadoActual = Produccion.S1; 
                             } else if (caracter == '"') {
-                                estadoActual = Produccion.S2; // Encuentra la segunda comilla doble
+                                estadoActual = Produccion.S2; 
                             } else {
                                 estadoActual = Produccion.ERROR;
                             }
@@ -68,7 +69,7 @@ S = { S0 }
                     }
                 }
 
-                // La cadena es válida si terminamos en el estado S2
+                // estadi de aceptacion S2
                 return estadoActual == Produccion.S2;
             }
 

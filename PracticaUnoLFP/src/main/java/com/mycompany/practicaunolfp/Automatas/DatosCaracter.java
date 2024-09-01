@@ -43,7 +43,8 @@ public class DatosCaracter {
             switch (estadoActual) {
                 case S0:
                     if (caracter == '\'') {
-                        estadoActual = Produccion.S1; // Encuentra la primera comilla simple
+                         // Encuentra la primera comilla simple
+                        estadoActual = Produccion.S1;
                     } else {
                         estadoActual = Produccion.ERROR;
                     }
@@ -51,7 +52,8 @@ public class DatosCaracter {
 
                 case S1:
                     if (esDigito(caracter) || esLetra(caracter) || esSimbolo(caracter)) {
-                        estadoActual = Produccion.S2; // Encuentra un carácter válido
+                        // Encuentra un carácter válido
+                        estadoActual = Produccion.S2; 
                     } else {
                         estadoActual = Produccion.ERROR;
                     }
@@ -59,7 +61,8 @@ public class DatosCaracter {
 
                 case S2:
                     if (caracter == '\'') {
-                        estadoActual = Produccion.S3; // Encuentra la segunda comilla simple, acepta la entrada
+                        // Encuentra la segunda comilla simple, acepta la entrada
+                        estadoActual = Produccion.S3;
                     } else {
                         estadoActual = Produccion.ERROR;
                     }
@@ -71,26 +74,27 @@ public class DatosCaracter {
             }
 
             if (estadoActual == Produccion.ERROR) {
-                break; // Salida en caso de error
+                // Salida en caso de error
+                break; 
             }
         }
         
-        // El carácter es válido si terminamos en el estado S3
+        // estado de aceptacion S3
         return estadoActual == Produccion.S3;
     }
 
     private boolean esDigito(char caracter) {
-        // Verifica si el carácter es un dígito
+        // verifica si el carácter es un dígito
         return caracter >= '0' && caracter <= '9';
     }
 
     private boolean esLetra(char caracter) {
-        // Verifica si el carácter es una letra mayúscula o minúscula
+        // verifica si el carácter es una letra mayúscula o minúscula
         return (caracter >= 'A' && caracter <= 'Z') || (caracter >= 'a' && caracter <= 'z');
     }
 
     private boolean esSimbolo(char caracter) {
-        // Verifica si el carácter es uno de los símbolos permitidos
+        // verifica si el carácter es uno de los símbolos permitidos
         char[] simbolosPermitidos = { '!', '@', '#', '$', '%', '^', '&', '|', ';', ':', ',', '.', '<', '>', '?' };
         for (char simbolo : simbolosPermitidos) {
             if (caracter == simbolo) {

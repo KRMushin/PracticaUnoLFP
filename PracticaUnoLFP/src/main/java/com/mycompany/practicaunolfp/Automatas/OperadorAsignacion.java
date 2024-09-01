@@ -41,9 +41,10 @@ public class OperadorAsignacion {
             switch (estadoActual) {
                 case S0:
                     if (caracter == '=') {
-                        estadoActual = Produccion.ACEPTACION;  // Asignación simple
+                        estadoActual = Produccion.ACEPTACION;  
                     } else if (caracter == '+' || caracter == '-' || caracter == '*' || caracter == '/') {
-                        estadoActual = Produccion.S1;  // Posible inicio de asignación compuesta
+                        estadoActual = Produccion.S1;  
+                      // posible inicio de asignación compuesta
                     } else {
                         estadoActual = Produccion.ERROR;
                     }
@@ -51,7 +52,8 @@ public class OperadorAsignacion {
 
                 case S1:
                     if (caracter == '=') {
-                        estadoActual = Produccion.ACEPTACION;  // Completa la asignación compuesta
+                        estadoActual = Produccion.ACEPTACION;  
+                    // completa la asignación compuesta
                     } else {
                         estadoActual = Produccion.ERROR;
                     }
@@ -63,7 +65,8 @@ public class OperadorAsignacion {
             }
 
             if (estadoActual == Produccion.ERROR) {
-                break;  // Salida en caso de error
+                break;  
+                // salida en caso de error
             }
         }
 
