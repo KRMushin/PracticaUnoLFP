@@ -1,0 +1,26 @@
+OperatorNum id x Sub Dim ( )
+( y z Main Module Sub Integer ) Square.Color(#9AD8DB)
+w Double Char Console.WriteLine Console.ReadLine
+If ElseIf
+( ) Module += *= End
+-= /= Integer
+Sub Main Dim As String Boolean Double Char
+Console.WriteLine Console.ReadLine
+If ElseIf Else Then While Do Loop For To Next Function
+Return Const
+Integer
+
+If If ElseIf Console.WriteLine ElseIf Sub Else Module
+
+Square.Color(#FFFFFF, 4 , 2)
+Square.Color(#000000, 4 , 3)
+Square.Color(#FFFFFF, 4 , 5)
+Square.Color(#000000, 4 , 6)
+
+Square.Color(#FFFFFF, 8 , 1)
+Square.Color(#FFFFFF, 8 , 3)
+Square.Color(#FFFFFF, 8 , 5)
+Square.Color(#FFFFFF, 8 , 7)
+
+
+
